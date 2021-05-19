@@ -23,7 +23,7 @@ document.addEventListener("click", clickEvent => {
 })
 
 export const LoginForm = () => {
-    return `
+    return /*html*/ `
         <div class="loginForm">
             <form>
                 <fieldset>
