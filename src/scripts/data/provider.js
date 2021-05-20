@@ -20,6 +20,13 @@ export const setMessageDisplay = () => {
   applicationState.feed.displayMessages = true
 }
 
+export const getFeedDisplayMessages = () => {
+
+    // displayMessages: applicationState.feed.displayMessages
+
+   return applicationState.feed.displayMessages
+}
+
 export const favoritePost = (likedPost) => {
   const fetchOptions = {
     method: "POST",

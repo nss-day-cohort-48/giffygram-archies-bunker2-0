@@ -1,10 +1,10 @@
-import { getUsers, postMessage } from "./data/provider.js"
+import { getUsers, postMessage, getFeedDisplayMessages } from "../data/provider.js"
 
 const applicationElement = document.querySelector(".giffygram");
 
 applicationElement.addEventListener("click", clickEvent => {
     if(clickEvent.target.id === "saveMessageButton") {
-        const messageRecipient = document.querySelector(".message_recipients").value
+        const messageRecipient = document.querySelector(".message__recipients").value
         const messageDescription = document.querySelector("input[name='description']").value
 
         const currentUserId = parseInt(localStorage.getItem("gg_user"))
@@ -19,12 +19,15 @@ applicationElement.addEventListener("click", clickEvent => {
         postMessage(messageToSendToAPI)
     }
 })
+ 
 
 export const MessageForm = () => {
     const users = getUsers()
+    const displayMessage = getFeedDisplayMessages()
 
+    if(displayMessage === true) {
     return `
-    <section class="message>
+    <section class="navigation__message">
     <div class="message__recipients">
         <label>Recipient:</label>
         <select class="recipients" id="recipients">
@@ -47,4 +50,7 @@ export const MessageForm = () => {
         <button id="directMessage__close">x</button>
         </section>
     `
+    } else {
+        return ""
+    }
 }

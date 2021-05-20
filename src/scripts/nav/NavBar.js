@@ -1,4 +1,4 @@
-import { setMessageDisplay } from "../data/provider";
+import { setMessageDisplay } from "../data/provider.js";
 
 
 const applicationElement = document.querySelector(".giffygram");
@@ -6,6 +6,7 @@ const applicationElement = document.querySelector(".giffygram");
 applicationElement.addEventListener("click", clickEvent => {
     if(clickEvent.target.id === "directMessageIcon") {
         setMessageDisplay()
+        applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
     }
 })
 
@@ -23,6 +24,7 @@ export const NavBar = () => {
                 <img id="directMessageIcon" src="../images/fountain-pen.svg" alt="Direct message" />
                 <div class="notification__count">0</div>
             </div>
+
             <div class="navigation__item navigation__logout">
                 <button id="logout" class="fakeLink">Logout</button>
             </div>
