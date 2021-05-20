@@ -16,6 +16,10 @@ const applicationState = {
 
 const mainContainer = document.querySelector(".giffygram");
 
+export const setMessageDisplay = () => {
+  applicationState.feed.displayMessages = true
+}
+
 export const favoritePost = (likedPost) => {
   const fetchOptions = {
     method: "POST",
@@ -76,6 +80,20 @@ export const fetchMessages = () => {
       applicationState.messages = message;
     });
 };
+
+export const postMessage = (userMessage) => {
+  return fetch(`${apiURL}/messages`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify(userMessage)
+  })
+  .then(response => response.json())
+  .then(() => {
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+  })
+}
 
 export const getUsers = () => {
   return [...applicationState.users];
