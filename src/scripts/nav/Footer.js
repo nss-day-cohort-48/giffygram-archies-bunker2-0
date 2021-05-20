@@ -36,6 +36,7 @@ applicationElement.addEventListener("change", changeEvent => {
 })
 
 export const Footer = () => {
+  
   //Footer HTML stuff
   return `
     <footer class ="footer">
