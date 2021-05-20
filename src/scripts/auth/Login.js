@@ -1,10 +1,15 @@
 import { getUsers } from "../data/provider.js";
 
+let newUser = false
+
 document.addEventListener('click', (clickEvent) => {
     if (clickEvent.target.id === "registerButton") {
-        document.dispatchEvent(new CustomEvent("stateChanged"))
+        newUser = true
+        localStorage.setItem("gg_newUser", newUser)
+        document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
     }
 })
+
 
 document.addEventListener("click", (clickEvent) => {
   if (clickEvent.target.id === "loginButton") {

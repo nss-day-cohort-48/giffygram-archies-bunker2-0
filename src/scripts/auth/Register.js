@@ -1,3 +1,5 @@
+
+
 export const Register = () => {
   return `
         <h1>Register Form</h1>
@@ -5,6 +7,7 @@ export const Register = () => {
             <form>
             <fieldset>
                 <label for="name">Name:</label>
+                <input type="text" name="userName" autofocus placeholder="Name" />
             </fieldset>
                 <fieldset>
                     <label for="email">Email:</label>
@@ -15,6 +18,6 @@ export const Register = () => {
                     <input type="password" name="password" placeholder="Password" />
                 </fieldset>
             </form>
-            <button id="loginButton">Login</button>
+            <button id="registerButton">Register New User</button>
     `;
 };
