@@ -39,6 +39,20 @@ export const fetchUsers = () => {
     });
 };
 
+export const postNewUser = (userObject) =>{
+  return fetch(`${apiURL}/users`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify(userObject)
+  })
+  .then(response => response.json())
+  .then(() => {
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+  })
+}
+
 export const fetchPosts = () => {
   return fetch(`${apiURL}/posts`)
     .then((response) => response.json())
