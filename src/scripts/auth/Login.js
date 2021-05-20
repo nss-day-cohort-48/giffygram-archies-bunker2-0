@@ -7,6 +7,7 @@ document.addEventListener('click', (clickEvent) => {
         newUser = true
         localStorage.setItem("gg_newUser", newUser)
         document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
+        newUser = false
     }
 })
 

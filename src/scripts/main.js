@@ -19,9 +19,7 @@ export const renderApp = () => {
     
     else if (newUser) {
         applicationElement.innerHTML = Register()
-    }
-    
-    else {
+    } else {
       applicationElement.innerHTML = LoginForm();
     }
   });
