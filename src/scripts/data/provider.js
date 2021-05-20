@@ -16,8 +16,15 @@ const applicationState = {
 
 const mainContainer = document.querySelector(".giffygram");
 
-export const setMessageDisplay = () => {
+export const getMessageDisplayMessage = () => {
+  return applicationState.feed.displayMessages
+}
+export const setMessageDisplayToTrue = () => {
   applicationState.feed.displayMessages = true
+}
+
+export const setMessageDisplayToFalse = () => {
+  applicationState.feed.displayMessages = false
 }
 
 export const getFeedDisplayMessages = () => {

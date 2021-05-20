@@ -1,12 +1,23 @@
-import { setMessageDisplay } from "../data/provider.js";
+import { setMessageDisplayToTrue, getMessageDisplayMessage, setMessageDisplayToFalse } from "../data/provider.js";
 
 
 const applicationElement = document.querySelector(".giffygram");
 
+
+
 applicationElement.addEventListener("click", clickEvent => {
+
+    let messageDisplay = getMessageDisplayMessage()
+    
     if(clickEvent.target.id === "directMessageIcon") {
-        setMessageDisplay()
+        if(messageDisplay === false) {
+        setMessageDisplayToTrue()
         applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+        }
+        else if (messageDisplay === true) {
+        setMessageDisplayToFalse()
+        applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+        }
     }
 })
 

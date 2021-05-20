@@ -1,23 +1,35 @@
-import { getUsers, postMessage, getFeedDisplayMessages } from "../data/provider.js"
+import { getUsers, postMessage, getFeedDisplayMessages, setMessageDisplayToFalse } from "../data/provider.js"
 
 const applicationElement = document.querySelector(".giffygram");
 
+
+
 applicationElement.addEventListener("click", clickEvent => {
-    if(clickEvent.target.id === "saveMessageButton") {
-        const messageRecipient = document.querySelector(".message__recipients").value
-        const messageDescription = document.querySelector("input[name='description']").value
+    if(clickEvent.target.id === "directMessage__submit") {
+        const messageRecipient = document.querySelector(".message__input").value
+        const messageDescription = document.querySelector("input[name='message']").value
 
         const currentUserId = parseInt(localStorage.getItem("gg_user"))
 
         const messageToSendToAPI = {
             userId: currentUserId,
-            recipientId: messageRecipient,
+            recipientId: parseInt(messageRecipient),
             text: messageDescription,
             read: false
         }
 
         postMessage(messageToSendToAPI)
+        setMessageDisplayToFalse()
+
     }
+    else if (clickEvent.target.id === "directMessage__close") {
+        setMessageDisplayToFalse()
+        applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+    }
+    else if (clickEvent.target.id === "directMessage__cancel") {
+        applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+    }
+    
 })
  
 
@@ -27,10 +39,11 @@ export const MessageForm = () => {
 
     if(displayMessage === true) {
     return `
-    <section class="navigation__message">
+    <div class="directMessage">
+    <h3>Direct Message</h3>
     <div class="message__recipients">
         <label>Recipient:</label>
-        <select class="recipients" id="recipients">
+        <select name="directMessage__userSelect" class="message__input" id="recipients">
         <option value="">Choose a recipient...</option>
         ${users.map((user) => {
             return `
@@ -41,14 +54,14 @@ export const MessageForm = () => {
         </div>
 
         <div class="message__description">
-        <label>Letter</label>
-        <input type="text" name="description" class="input"/>
+        <label for="message">Message:</label>
+        <input type="text" name="message" class="message__input" placeholder="Message to user"/>
         </div>
 
         <button id="directMessage__submit">Save</button>
-        <button id="directMessage__cancel>Cancel</button>
+        <button id="directMessage__cancel">Cancel</button>
         <button id="directMessage__close">x</button>
-        </section>
+        </div>
     `
     } else {
         return ""
