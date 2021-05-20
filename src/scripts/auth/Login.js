@@ -1,13 +1,13 @@
 import { getUsers } from "../data/provider.js";
 
-let newUser = false
 
 document.addEventListener('click', (clickEvent) => {
-    if (clickEvent.target.id === "registerButton") {
-        newUser = true
+    if (clickEvent.target.id === "startRegister") {
+        let newUser = true
         localStorage.setItem("gg_newUser", newUser)
         document.querySelector(".giffygram").dispatchEvent(new CustomEvent("stateChanged"))
-        newUser = false
+        
+        localStorage.removeItem("gg_newUser", newUser)
     }
 })
 
@@ -49,7 +49,7 @@ export const LoginForm = () => {
                 </fieldset>
             </form>
             <button id="loginButton">Login</button>
-            <button id="registerButton">Register</button>
+            <button id="startRegister">Register</button>
         </div>
     `;
 };

@@ -16,7 +16,6 @@ export const renderApp = () => {
     if (user) {
       applicationElement.innerHTML = GiffyGram();
     } 
-    
     else if (newUser) {
         applicationElement.innerHTML = Register()
     } else {

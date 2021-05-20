@@ -17,8 +17,17 @@ applicationElement.addEventListener("click", clickEvent => {
 
         postNewUser(newUserToSendToApi)
 
+
+
+        applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+    }
+    else if (clickEvent.target.id === "cancelButton") {
+        localStorage.removeItem("gg_newUser")
+        applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
     }
 })
+
+
 
 export const Register = () => {
   return `
