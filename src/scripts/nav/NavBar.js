@@ -1,4 +1,5 @@
 
+
 const applicationElement = document.querySelector(".giffygram");
 
 export const NavBar = () => {
