@@ -1,7 +1,7 @@
 import {
   getUsers,
   postMessage,
-  getFeedDisplayMessages,
+  getMessageDisplayMessage,
   setMessageDisplayToFalse,
 } from "../data/provider.js";
 
@@ -34,7 +34,7 @@ applicationElement.addEventListener("click", (clickEvent) => {
 
 export const MessageForm = () => {
   const users = getUsers();
-  const displayMessage = getFeedDisplayMessages();
+  const displayMessage = getMessageDisplayMessage();
 
   if (displayMessage === true) {
     return `

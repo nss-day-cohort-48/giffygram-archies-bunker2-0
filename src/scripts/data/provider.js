@@ -42,10 +42,16 @@ export const setMessageDisplayToFalse = () => {
   applicationState.feed.displayMessage = false
 }
 
-export const getFeedDisplayMessages = () => {
-   return applicationState.feed.displayMessage
+export const getInboxDisplay = () => {
+  return applicationState.feed.displayInbox
+}
+export const setInboxDisplayToTrue = () => {
+  applicationState.feed.displayInbox = true
 }
 
+export const setInboxDisplayToFalse = () => {
+  applicationState.feed.displayInbox = false
+}
 
 export const favoritePost = (likedPost) => {
   const fetchOptions = {
