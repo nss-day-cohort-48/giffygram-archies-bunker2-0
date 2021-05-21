@@ -26,6 +26,8 @@ mainContainer.addEventListener("click", (clickEvent) => {
     const postDescription = document.querySelector(
       "textarea[name='postDescription']"
     ).value;
+    miniMode = true;
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
 
     const currentUserId = parseInt(localStorage.getItem("gg_user"));
 
