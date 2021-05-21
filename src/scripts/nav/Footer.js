@@ -39,9 +39,14 @@ applicationElement.addEventListener("change", changeEvent => {
 applicationElement.addEventListener("change", changeEvent => {
   if (changeEvent.target.id === "userSelection") {
     const [, userId] = changeEvent.target.value.split("--")
+
+    if (userId === "0") {
+      applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+
+    } else 
     document.querySelector(".giffygram__feed").innerHTML = userPostFeedHTML(userId)
-    // applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
   }
+  
 })
 
 export const Footer = () => {
