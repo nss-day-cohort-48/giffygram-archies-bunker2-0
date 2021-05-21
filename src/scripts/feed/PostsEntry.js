@@ -1,6 +1,6 @@
-// TODO: add a sendPostToApi function in provider.js, create an event listener in this module
-
 import { sendPost } from "../data/provider.js";
+
+const mainContainer = document.querySelector(".giffygram");
 
 mainContainer.addEventListener("click", (clickEvent) => {
   if (clickEvent.target.id === "newPost__submit") {
