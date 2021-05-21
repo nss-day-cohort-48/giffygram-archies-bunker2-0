@@ -1,6 +1,15 @@
 
 
 const applicationElement = document.querySelector(".giffygram");
+// const logoutElement = document.getElementById("logout");
+
+applicationElement.addEventListener("click", clickEvent => {
+       if (clickEvent.target.id === "logout") {
+            localStorage.removeItem("gg_user")
+            applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+       }   
+        
+    })
 
 export const NavBar = () => {
   return /*html*/ `
