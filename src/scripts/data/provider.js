@@ -6,7 +6,8 @@ const applicationState = {
   feed: {
     chosenUser: null,
     displayFavorites: false,
-    displayMessages: false,
+    displayMessage: false,
+    displayInbox: false
   },
   users: [],
   posts: [],
@@ -17,21 +18,18 @@ const applicationState = {
 const mainContainer = document.querySelector(".giffygram");
 
 export const getMessageDisplayMessage = () => {
-  return applicationState.feed.displayMessages
+  return applicationState.feed.displayMessage
 }
 export const setMessageDisplayToTrue = () => {
-  applicationState.feed.displayMessages = true
+  applicationState.feed.displayMessage = true
 }
 
 export const setMessageDisplayToFalse = () => {
-  applicationState.feed.displayMessages = false
+  applicationState.feed.displayMessage = false
 }
 
 export const getFeedDisplayMessages = () => {
-
-    // displayMessages: applicationState.feed.displayMessages
-
-   return applicationState.feed.displayMessages
+   return applicationState.feed.displayMessage
 }
 
 export const favoritePost = (likedPost) => {

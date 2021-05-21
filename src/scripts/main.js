@@ -1,6 +1,6 @@
 import { GiffyGram } from "./GiffyGram.js";
 import { LoginForm } from "./auth/Login.js";
-import { fetchPosts, fetchUsers } from "./data/provider.js";
+import { fetchMessages, fetchPosts, fetchUsers } from "./data/provider.js";
 import { Register } from "./auth/Register.js";
 
 const applicationElement = document.querySelector(".giffygram");
@@ -11,7 +11,8 @@ export const renderApp = () => {
   const newUser = localStorage.getItem("gg_newUser");
 
   fetchUsers()
-    .then(fetchPosts)
+    .then(fetchMessages())
+    .then(fetchPosts())
     .then(() => {
       if (user) {
         applicationElement.innerHTML = GiffyGram();
