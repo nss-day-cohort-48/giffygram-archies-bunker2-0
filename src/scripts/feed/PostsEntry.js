@@ -43,5 +43,6 @@ export const PostEntry = () => {
     </div>
 
     `;
+
   return html;
 };
