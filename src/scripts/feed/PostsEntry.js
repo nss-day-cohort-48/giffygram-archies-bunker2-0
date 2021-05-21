@@ -1,6 +1,23 @@
 import { sendPost } from "../data/provider.js";
 
+var miniMode = true;
+
 const mainContainer = document.querySelector(".giffygram");
+
+// this event listener allows miniMode to "open"
+document.addEventListener("click", (clickEvent) => {
+  if (clickEvent.target.id === "miniMode") {
+    miniMode = false;
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+  }
+});
+// this event listener allows miniMode to "close"
+document.addEventListener("click", (clickEvent) => {
+  if (clickEvent.target.id === "newPost__cancel") {
+    miniMode = true;
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+  }
+});
 
 mainContainer.addEventListener("click", (clickEvent) => {
   if (clickEvent.target.id === "newPost__submit") {
@@ -9,6 +26,8 @@ mainContainer.addEventListener("click", (clickEvent) => {
     const postDescription = document.querySelector(
       "textarea[name='postDescription']"
     ).value;
+    miniMode = true;
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
 
     const currentUserId = parseInt(localStorage.getItem("gg_user"));
 
@@ -25,8 +44,11 @@ mainContainer.addEventListener("click", (clickEvent) => {
 });
 
 export const PostEntry = () => {
-  let html = `
-  
+  if (miniMode) {
+    return `
+        <div class="miniMode" id="miniMode">Have a gif to post?</div>`;
+  } else {
+    return `
     <div class="newPost">
     <div>
       <input value="" name="postTitle" class="newPost__input" type="text" placeholder="Title">
@@ -43,5 +65,5 @@ export const PostEntry = () => {
     
 
     `;
-  return html;
+  }
 };

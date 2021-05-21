@@ -37,7 +37,14 @@ applicationElement.addEventListener("click", clickEvent => {
         else if (inboxDisplay === true) {
         setInboxDisplayToFalse()
         applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
-        }
+    }
+}
+})
+
+applicationElement.addEventListener("click", clickEvent => {
+    if (clickEvent.target.id === "logo") {
+        applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+
     }
 })
 
