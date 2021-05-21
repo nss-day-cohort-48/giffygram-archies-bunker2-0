@@ -11,8 +11,10 @@ export const GiffyGram = () => {
     ${NavBar()}
     ${MessageForm()}
     ${MessageList()}
+    <div class="giffygram__feed">
     ${PostEntry()}
     ${PostList()}
+    </div>
     ${Footer()}
     `;
 };
