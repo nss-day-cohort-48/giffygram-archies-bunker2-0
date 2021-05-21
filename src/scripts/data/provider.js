@@ -1,6 +1,5 @@
 const apiURL = "http://localhost:8088";
 
-
 const applicationState = {
   currentUser: {},
   feed: {
@@ -15,6 +14,21 @@ const applicationState = {
 };
 
 const mainContainer = document.querySelector(".giffygram");
+
+export const sendPost = (newPost) => {
+  const fetchOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newPost),
+  };
+  return fetch(`${apiURL}/posts`, fetchOptions)
+    .then((response) => response.json())
+    .then(() => {
+      mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+    });
+};
 
 export const favoritePost = (likedPost) => {
   const fetchOptions = {
@@ -39,19 +53,19 @@ export const fetchUsers = () => {
     });
 };
 
-export const postNewUser = (userObject) =>{
+export const postNewUser = (userObject) => {
   return fetch(`${apiURL}/users`, {
     method: "POST",
     headers: {
-      "Content-type": "application/json"
+      "Content-type": "application/json",
     },
-    body: JSON.stringify(userObject)
+    body: JSON.stringify(userObject),
   })
-  .then(response => response.json())
-  .then(() => {
-    mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
-  })
-}
+    .then((response) => response.json())
+    .then(() => {
+      mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+    });
+};
 
 export const fetchPosts = () => {
   return fetch(`${apiURL}/posts`)
