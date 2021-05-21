@@ -13,7 +13,6 @@ export const GiffyGram = () => {
   return `
     ${NavBar()}
     ${MessageForm()}
-    ${MessageList()}
     <div class="giffygram__feed">
     ${PostEntry()}
     ${PostList()}

@@ -5,6 +5,20 @@ export const MessageList = () => {
   const users = getUsers();
   const currentUserId = parseInt(localStorage.getItem("gg_user"))
 
+  const applicationElement = document.querySelector(".giffygram");
+
+  applicationElement.addEventListener("click", clickEvent => {
+      if(clickEvent.target.id.startsWith("readButton")) {
+         const [, messageId] = clickEvent.target.id.split("--")
+         for (const message of messages) {
+            if(messageId === message.id) {
+                message.read = true
+            }
+         }
+         
+      }
+  })
+
   let html = `<div class="messages"></div>
                <div class="messageList">
                ${messages.map((message) => {
@@ -17,7 +31,9 @@ export const MessageList = () => {
                               ).name
                             }</div>
                             <div class="message__text">${message.text}</div>
+                            <button id="readButton--${message.id}">Read</button>
                         </div>
+                        
                    `;
                }).join("")}
                </div>
