@@ -15,11 +15,16 @@ applicationElement.addEventListener("click", clickEvent => {
             password: userPassword
         }
 
-        postNewUser(newUserToSendToApi)
+        if (userName.length === 0 || userEmail.length === 0 || userPassword.length === 0 ) {
+            window.alert("Please fill out the form")
+            
+        } else { 
+            postNewUser(newUserToSendToApi) 
+            applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+        }
 
 
 
-        applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
     }
     else if (clickEvent.target.id === "cancelButton") {
         localStorage.removeItem("gg_newUser")
@@ -36,15 +41,15 @@ export const Register = () => {
             <form>
             <fieldset>
                 <label for="name">Name:</label>
-                <input type="text" name="userName" autofocus placeholder="Name" />
+                <input type="text" name="userName" autofocus placeholder="Don Joe" required />
             </fieldset>
                 <fieldset>
                     <label for="email">Email:</label>
-                    <input type="text" name="email" autofocus placeholder="Email address" />
+                    <input type="email" name="email" autofocus placeholder="don@joe.com" required/>
                 </fieldset>
                 <fieldset>
                     <label for="password">Password:</label>
-                    <input type="password" name="password" placeholder="Password" />
+                    <input type="password" name="password" placeholder="Password123" required/>
                 </fieldset>
             </form>
             <button id="registerButton">Register New User</button>

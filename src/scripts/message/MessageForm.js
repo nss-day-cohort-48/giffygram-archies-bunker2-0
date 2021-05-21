@@ -1,43 +1,42 @@
-import { getUsers, postMessage, getFeedDisplayMessages, setMessageDisplayToFalse } from "../data/provider.js"
+import {
+  getUsers,
+  postMessage,
+  getFeedDisplayMessages,
+  setMessageDisplayToFalse,
+} from "../data/provider.js";
 
 const applicationElement = document.querySelector(".giffygram");
 
+applicationElement.addEventListener("click", (clickEvent) => {
+  if (clickEvent.target.id === "directMessage__submit") {
+    const messageRecipient = document.querySelector(".message__input").value;
+    const messageDescription = document.querySelector("input[name='message']")
+      .value;
 
+    const currentUserId = parseInt(localStorage.getItem("gg_user"));
 
-applicationElement.addEventListener("click", clickEvent => {
-    if(clickEvent.target.id === "directMessage__submit") {
-        const messageRecipient = document.querySelector(".message__input").value
-        const messageDescription = document.querySelector("input[name='message']").value
+    const messageToSendToAPI = {
+      userId: currentUserId,
+      recipientId: parseInt(messageRecipient),
+      text: messageDescription,
+      read: false,
+    };
 
-        const currentUserId = parseInt(localStorage.getItem("gg_user"))
-
-        const messageToSendToAPI = {
-            userId: currentUserId,
-            recipientId: parseInt(messageRecipient),
-            text: messageDescription,
-            read: false
-        }
-
-        postMessage(messageToSendToAPI)
-        setMessageDisplayToFalse()
-
-    }
-    else if (clickEvent.target.id === "directMessage__close") {
-        setMessageDisplayToFalse()
-        applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
-    }
-    else if (clickEvent.target.id === "directMessage__cancel") {
-        applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
-    }
-    
-})
- 
+    postMessage(messageToSendToAPI);
+    setMessageDisplayToFalse();
+  } else if (clickEvent.target.id === "directMessage__close") {
+    setMessageDisplayToFalse();
+    applicationElement.dispatchEvent(new CustomEvent("stateChanged"));
+  } else if (clickEvent.target.id === "directMessage__cancel") {
+    applicationElement.dispatchEvent(new CustomEvent("stateChanged"));
+  }
+});
 
 export const MessageForm = () => {
-    const users = getUsers()
-    const displayMessage = getFeedDisplayMessages()
+  const users = getUsers();
+  const displayMessage = getFeedDisplayMessages();
 
-    if(displayMessage === true) {
+  if (displayMessage === true) {
     return `
     <div class="directMessage">
     <h3>Direct Message</h3>
@@ -45,11 +44,13 @@ export const MessageForm = () => {
         <label>Recipient:</label>
         <select name="directMessage__userSelect" class="message__input" id="recipients">
         <option value="">Choose a recipient...</option>
-        ${users.map((user) => {
+        ${users
+          .map((user) => {
             return `
             <option class="user" value="${user.id}">${user.id}</option>
-            `
-        }).join("")}
+            `;
+          })
+          .join("")}
         </select>
         </div>
 
@@ -62,8 +63,8 @@ export const MessageForm = () => {
         <button id="directMessage__cancel">Cancel</button>
         <button id="directMessage__close">x</button>
         </div>
-    `
-    } else {
-        return ""
-    }
-}
+    `;
+  } else {
+    return "";
+  }
+};

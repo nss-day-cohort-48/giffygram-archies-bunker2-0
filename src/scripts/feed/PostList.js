@@ -2,14 +2,15 @@ import { getLikes, getPosts, getUsers } from "../data/provider.js";
 
 export const PostList = () => {
   const posts = getPosts();
+  posts.sort((post1, post2) => (post1.timestamp < post2.timestamp ? 1 : -1));
   const likes = getLikes();
   const users = getUsers();
   let html = `
-  <div class="giffygram__feed">
+  <section class="post">
   ${posts
     .map((post) => {
       return `
-        <section class="post">
+        
         <header>
             <h2 class="post__title">${post.title}</h2>
         </header>
@@ -35,11 +36,12 @@ export const PostList = () => {
             </div>
         </div>
         
-        </section>
+        
       `;
     })
     .join("")}
-    </div>
+    </section>
+
   `;
   return html;
 };
