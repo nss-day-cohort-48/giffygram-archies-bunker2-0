@@ -1,6 +1,34 @@
+import { setMessageDisplayToTrue, getMessageDisplayMessage, setMessageDisplayToFalse } from "../data/provider.js";
 
 
 const applicationElement = document.querySelector(".giffygram");
+// const logoutElement = document.getElementById("logout");
+
+applicationElement.addEventListener("click", clickEvent => {
+       if (clickEvent.target.id === "logout") {
+            localStorage.removeItem("gg_user")
+            applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+       }   
+        
+    })
+
+
+
+applicationElement.addEventListener("click", clickEvent => {
+
+    let messageDisplay = getMessageDisplayMessage()
+    
+    if(clickEvent.target.id === "directMessageIcon") {
+        if(messageDisplay === false) {
+        setMessageDisplayToTrue()
+        applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+        }
+        else if (messageDisplay === true) {
+        setMessageDisplayToFalse()
+        applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+        }
+    }
+})
 
 export const NavBar = () => {
   return /*html*/ `
@@ -11,10 +39,12 @@ export const NavBar = () => {
             <div class="navigation__item navigation__name">
                 Giffygram
             </div>
+            
             <div class="navigation__item navigation__message">
                 <img id="directMessageIcon" src="../images/fountain-pen.svg" alt="Direct message" />
                 <div class="notification__count">0</div>
             </div>
+
             <div class="navigation__item navigation__logout">
                 <button id="logout" class="fakeLink">Logout</button>
             </div>

@@ -30,6 +30,23 @@ export const sendPost = (newPost) => {
     });
 };
 
+export const getMessageDisplayMessage = () => {
+  return applicationState.feed.displayMessages;
+};
+export const setMessageDisplayToTrue = () => {
+  applicationState.feed.displayMessages = true;
+};
+
+export const setMessageDisplayToFalse = () => {
+  applicationState.feed.displayMessages = false;
+};
+
+export const getFeedDisplayMessages = () => {
+  // displayMessages: applicationState.feed.displayMessages
+
+  return applicationState.feed.displayMessages;
+};
+
 export const favoritePost = (likedPost) => {
   const fetchOptions = {
     method: "POST",
@@ -88,6 +105,20 @@ export const fetchMessages = () => {
     .then((response) => response.json())
     .then((message) => {
       applicationState.messages = message;
+    });
+};
+
+export const postMessage = (userMessage) => {
+  return fetch(`${apiURL}/messages`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(userMessage),
+  })
+    .then((response) => response.json())
+    .then(() => {
+      mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
     });
 };
 
