@@ -13,7 +13,7 @@ export const MessageList = () => {
                         <div class="message" id="message--${message.id}">
                             <div class="message__author">From ${
                               users.find(
-                                (user) => user.id === message.recipientId
+                                (user) => user.id === message.userId
                               ).name
                             }</div>
                             <div class="message__text">${message.text}</div>
