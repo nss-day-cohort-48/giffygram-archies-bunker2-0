@@ -3,7 +3,7 @@ import { MessageForm } from "./message/MessageForm.js";
 import { PostList } from "./feed/PostList.js";
 import { PostEntry } from "./feed/PostsEntry.js";
 import { Footer } from "./nav/Footer.js";
-import { MessageList } from "./friends/MessageList.js"
+import { MessageList } from "./friends/MessageList.js";
 
 export const GiffyGram = () => {
   // Show main main UI
@@ -11,6 +11,10 @@ export const GiffyGram = () => {
     ${NavBar()}
     ${MessageForm()}
     ${MessageList()}
+    <div class="postEntry">
+        <div class="miniMode" id="miniMode">Have a gif to post?
+        </div>
+    </div>
     ${PostEntry()}
     ${PostList()}
     ${Footer()}
