@@ -6,7 +6,7 @@ const applicationState = {
     chosenUser: null,
     displayFavorites: false,
     displayMessage: false,
-    displayInbox: false
+    displayInbox: false,
   },
   users: [],
   posts: [],
@@ -32,26 +32,26 @@ export const sendPost = (newPost) => {
 };
 
 export const getMessageDisplayMessage = () => {
-  return applicationState.feed.displayMessage
-}
+  return applicationState.feed.displayMessage;
+};
 export const setMessageDisplayToTrue = () => {
-  applicationState.feed.displayMessage = true
-}
+  applicationState.feed.displayMessage = true;
+};
 
 export const setMessageDisplayToFalse = () => {
-  applicationState.feed.displayMessage = false
-}
+  applicationState.feed.displayMessage = false;
+};
 
 export const getInboxDisplay = () => {
-  return applicationState.feed.displayInbox
-}
+  return applicationState.feed.displayInbox;
+};
 export const setInboxDisplayToTrue = () => {
-  applicationState.feed.displayInbox = true
-}
+  applicationState.feed.displayInbox = true;
+};
 
 export const setInboxDisplayToFalse = () => {
-  applicationState.feed.displayInbox = false
-}
+  applicationState.feed.displayInbox = false;
+};
 
 export const favoritePost = (likedPost) => {
   const fetchOptions = {

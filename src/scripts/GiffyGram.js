@@ -3,14 +3,14 @@ import { MessageForm } from "./message/MessageForm.js";
 import { PostList } from "./feed/PostList.js";
 import { PostEntry } from "./feed/PostsEntry.js";
 import { Footer } from "./nav/Footer.js";
-import { MessageList } from "./friends/MessageList.js"
-import {getInboxDisplay} from "./data/provider.js"
+import { MessageList } from "./friends/MessageList.js";
+import { getInboxDisplay } from "./data/provider.js";
 
 export const GiffyGram = () => {
-    let inboxDisplay = getInboxDisplay()
+  let inboxDisplay = getInboxDisplay();
   // Show main main UI
   if (inboxDisplay === false) {
-  return `
+    return `
     ${NavBar()}
     ${MessageForm()}
     <div class="giffygram__feed">
@@ -19,12 +19,11 @@ export const GiffyGram = () => {
     </div>
     ${Footer()}
     `;
-  }
-  else {
-      return `
+  } else {
+    return `
       ${NavBar()}
       ${MessageList()}
       ${Footer()}
-      `
+      `;
   }
 };
