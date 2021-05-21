@@ -26,7 +26,7 @@ mainContainer.addEventListener("click", (clickEvent) => {
 
 export const PostEntry = () => {
   let html = `
-  <div class="giffygram__feed">
+  
     <div class="newPost">
     <div>
       <input value="" name="postTitle" class="newPost__input" type="text" placeholder="Title">
@@ -40,7 +40,7 @@ export const PostEntry = () => {
     <button id="newPost__submit">Save</button>
     <button id="newPost__cancel">Cancel</button>
     </div>
-    </div>
+    
 
     `;
   return html;
