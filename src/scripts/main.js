@@ -11,8 +11,8 @@ export const renderApp = () => {
   const newUser = localStorage.getItem("gg_newUser");
 
   fetchUsers()
-    .then(fetchMessages())
-    .then(fetchPosts())
+    .then(fetchMessages)
+    .then(fetchPosts)
     .then(() => {
       if (user) {
         applicationElement.innerHTML = GiffyGram();

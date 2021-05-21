@@ -5,12 +5,13 @@ export const PostList = () => {
   posts.sort((post1, post2) => (post1.timestamp < post2.timestamp ? 1 : -1));
   const likes = getLikes();
   const users = getUsers();
-  let html = `
-  <section class="post">
+  let html = ``
+  html += `
   ${posts
     .map((post) => {
       return `
-        
+      
+      <section class="post">
         <header>
             <h2 class="post__title">${post.title}</h2>
         </header>
@@ -35,13 +36,15 @@ export const PostList = () => {
                 <img id="favoritePost--4" class="actionIcon" src="/images/favorite-star-blank.svg">
             </div>
         </div>
+      </section>
         
         
       `;
     })
-    .join("")}
-    </section>
+    .join("")}`
 
-  `;
+   
+
+  ;
   return html;
 };

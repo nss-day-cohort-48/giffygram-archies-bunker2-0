@@ -44,13 +44,9 @@ mainContainer.addEventListener("click", (clickEvent) => {
 export const PostEntry = () => {
   TODO: if (miniMode) {
     return `
-        <div class="postEntry">
-            <div class="miniMode" id="miniMode">Have a gif to post?
-            </div>
-        </div>`;
+        <div class="miniMode" id="miniMode">Have a gif to post?</div>`;
   } else {
     return `
-  <div class="giffygram__feed">
     <div class="newPost">
     <div>
       <input value="" name="postTitle" class="newPost__input" type="text" placeholder="Title">
@@ -64,7 +60,7 @@ export const PostEntry = () => {
     <button id="newPost__submit">Save</button>
     <button id="newPost__cancel">Cancel</button>
     </div>
-    </div>
+    
 
     `;
   }
