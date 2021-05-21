@@ -1,6 +1,23 @@
 import { sendPost } from "../data/provider.js";
 
+TODO: var miniMode = true;
+
 const mainContainer = document.querySelector(".giffygram");
+
+// this event listener allows miniMode to "open"
+TODO: document.addEventListener("click", (clickEvent) => {
+  if (clickEvent.target.id === "miniMode") {
+    miniMode = false;
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+  }
+});
+// this event listener allows miniMode to "close"
+TODO: document.addEventListener("click", (clickEvent) => {
+  if (clickEvent.target.id === "newPost__cancel") {
+    miniMode = true;
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+  }
+});
 
 mainContainer.addEventListener("click", (clickEvent) => {
   if (clickEvent.target.id === "newPost__submit") {
@@ -25,7 +42,14 @@ mainContainer.addEventListener("click", (clickEvent) => {
 });
 
 export const PostEntry = () => {
-  let html = `
+  TODO: if (miniMode) {
+    return `
+        <div class="postEntry">
+            <div class="miniMode" id="miniMode">Have a gif to post?
+            </div>
+        </div>`;
+  } else {
+    return `
   <div class="giffygram__feed">
     <div class="newPost">
     <div>
@@ -43,6 +67,5 @@ export const PostEntry = () => {
     </div>
 
     `;
-
-  return html;
+  }
 };

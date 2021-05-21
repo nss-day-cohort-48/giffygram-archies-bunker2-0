@@ -11,10 +11,6 @@ export const GiffyGram = () => {
     ${NavBar()}
     ${MessageForm()}
     ${MessageList()}
-    <div class="postEntry">
-        <div class="miniMode" id="miniMode">Have a gif to post?
-        </div>
-    </div>
     ${PostEntry()}
     ${PostList()}
     ${Footer()}
