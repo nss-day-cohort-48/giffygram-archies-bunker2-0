@@ -1,4 +1,5 @@
-import { getPosts } from "../data/provider.js"
+import { getPosts, getUsers } from "../data/provider.js"
+
 
 
 const applicationElement = document.querySelector(".giffygram")
@@ -43,13 +44,32 @@ export const Footer = () => {
       <div class="footer__item">
         Posts Since <select id="yearSelection">
           <option ${yearChosen === 2021 ? "selected": ""}>2021</option>
-          <option ${yearChosen === 2020 ? "selected": ""}>2020</option>
+          <option ${yearChosen === 2021 ? "selected": ""}>2021</option>
           <option ${yearChosen === 2019 ? "selected": ""}>2019</option>
           <option ${yearChosen === 2018 ? "selected": ""}>2018</option>
+          </select>
+          <span id="postCount">${postCount}</span>
+      </div>
+      <div class="footer__item">
+        Posts by user <select id="userSelection">
+          
+          ${footUserDropdownHTML()}
         </select>
-        <span id="postCount">${postCount}</span>
+      </div>
+      <div class="footer__item">
+        Show only favorites
+        <input id="showOnlyFavorites" type="checkbox">
       </div>
     </footer>
   `
 }
 
+const footUserDropdownHTML = () => {
+  let dropdownHTML = ``
+
+  const users = getUsers()
+
+  dropdownHTML += users.map((user) => `<option value=user--${user.id}>${user.name}</option>`)
+
+  return dropdownHTML
+}
