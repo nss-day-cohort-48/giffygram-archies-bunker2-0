@@ -53,13 +53,16 @@ export const setInboxDisplayToFalse = () => {
   applicationState.feed.displayInbox = false;
 };
 
-export const favoritePost = (likedPost) => {
+export const favoritePost = (id) => {
   const fetchOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(likedPost),
+    body: JSON.stringify({
+      userId: parseInt(localStorage.getItem("gg_user")),
+      postId: id,
+    }),
   };
   return fetch(`${apiURL}/posts`, fetchOptions)
     .then((response) => response.json())
