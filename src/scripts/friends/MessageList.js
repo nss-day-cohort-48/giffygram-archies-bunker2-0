@@ -1,4 +1,4 @@
-import { getMessages, getUsers } from "../data/provider.js";
+import { getMessages, getUsers, messageIsRead, messageIsUnread } from "../data/provider.js";
 
 export const MessageList = () => {
   const messages = getMessages();
@@ -7,22 +7,33 @@ export const MessageList = () => {
 
   const applicationElement = document.querySelector(".giffygram");
 
-  applicationElement.addEventListener("click", clickEvent => {
-      if(clickEvent.target.id.startsWith("readButton")) {
-         const [, messageId] = clickEvent.target.id.split("--")
+  applicationElement.addEventListener("change", changeEvent => {
+      if(changeEvent.target.id.startsWith("readCheckbox")) {
+         const [, messageId] = changeEvent.target.id.split("--")
+         const messageIdInt = parseInt(messageId)
          for (const message of messages) {
-            if(messageId === message.id) {
-                message.read = true
-            }
+             if(message.id === messageIdInt) {
+                 if(message.read === false) {
+                    messageIsRead(messageIdInt)
+                 } 
+                 else if(message.read === true) {
+                    messageIsUnread(messageIdInt)
+                 }
+             }
          }
-         
       }
   })
 
-  let html = `<div class="messages"></div>
+  let readMessages = messages.filter(message => message.read === true)
+  let unReadMessages = messages.filter(message => message.read === false)
+
+
+  let html = `<div class="messages">
                <div class="messageList">
-               ${messages.map((message) => {
-                   if(currentUserId === message.recipientId)
+               <h3 class="unReadMessagesHeader">Unread Messages</h3>
+               ${unReadMessages.map((message) => {
+                   if(currentUserId === message.recipientId) 
+
                  return `
                         <div class="message" id="message--${message.id}">
                             <div class="message__author">From ${
@@ -31,11 +42,32 @@ export const MessageList = () => {
                               ).name
                             }</div>
                             <div class="message__text">${message.text}</div>
-                            <button id="readButton--${message.id}">Read</button>
+                            <input type="checkbox" id="readCheckbox--${message.id}"> Read</input>
                         </div>
                         
                    `;
                }).join("")}
+               </div>
+
+               <div class="messageList">
+               <h3 class="readMessagesHeader">Read Messages</h3>
+               ${readMessages.map((message) => {
+                   if(currentUserId === message.recipientId) 
+
+                 return `
+                        <div class="message" id="message--${message.id}">
+                            <div class="message__author">From ${
+                              users.find(
+                                (user) => user.id === message.userId
+                              ).name
+                            }</div>
+                            <div class="message__text">${message.text}</div>
+                            <input type="checkbox" id="readCheckbox--${message.id}" checked="checked"> Read</input>
+                        </div>
+                        
+                   `;
+               }).join("")}
+               </div>
                </div>
     `;
   return html;

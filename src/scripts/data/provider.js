@@ -128,6 +128,35 @@ export const postMessage = (userMessage) => {
     });
 };
 
+export const messageIsRead = (messageId) => {
+  return fetch(`${apiURL}/messages/${messageId}`, {
+      method: "PATCH",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify({read: true})
+  })
+  .then(response => response.json())
+  .then(() => {
+      mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+  })
+}
+
+export const messageIsUnread = (messageId) => {
+  return fetch(`${apiURL}/messages/${messageId}`, {
+      method: "PATCH",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify({read: false})
+  })
+  .then(response => response.json())
+  .then(() => {
+      mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+  })
+}
+
+
 export const getUsers = () => {
   return [...applicationState.users];
 };

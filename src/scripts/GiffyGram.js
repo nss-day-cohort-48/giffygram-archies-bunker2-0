@@ -22,6 +22,7 @@ export const GiffyGram = () => {
   } else {
     return `
       ${NavBar()}
+      ${MessageForm()}
       ${MessageList()}
       ${Footer()}
       `;
