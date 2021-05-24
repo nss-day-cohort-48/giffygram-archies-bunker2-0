@@ -5,7 +5,7 @@ export const PostList = () => {
   posts.sort((post1, post2) => (post1.timestamp < post2.timestamp ? 1 : -1));
   const likes = getLikes();
   const users = getUsers();
-  let html = ``
+  let html = ``;
   html += `
   ${posts
     .map((post) => {
@@ -41,10 +41,6 @@ export const PostList = () => {
         
       `;
     })
-    .join("")}`
-
-   
-
-  ;
+    .join("")}`;
   return html;
 };
