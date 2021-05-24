@@ -64,7 +64,7 @@ export const favoritePost = (id) => {
       postId: id,
     }),
   };
-  return fetch(`${apiURL}/posts`, fetchOptions)
+  return fetch(`${apiURL}/likes`, fetchOptions)
     .then((response) => response.json())
     .then(() => {
       mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
@@ -133,32 +133,37 @@ export const postMessage = (userMessage) => {
 
 export const messageIsRead = (messageId) => {
   return fetch(`${apiURL}/messages/${messageId}`, {
-      method: "PATCH",
-      headers: {
-          "Content-Type": "application/json"
-      },
-      body: JSON.stringify({read: true})
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ read: true }),
   })
-  .then(response => response.json())
-  .then(() => {
-      mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
-  })
-}
+    .then((response) => response.json())
+    .then(() => {
+      mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+    });
+};
 
 export const messageIsUnread = (messageId) => {
   return fetch(`${apiURL}/messages/${messageId}`, {
-      method: "PATCH",
-      headers: {
-          "Content-Type": "application/json"
-      },
-      body: JSON.stringify({read: false})
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ read: false }),
   })
-  .then(response => response.json())
-  .then(() => {
-      mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
-  })
-}
+    .then((response) => response.json())
+    .then(() => {
+      mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+    });
+};
 
+export const deletePost = (id) => {
+  return fetch(`${apiURL}/posts/${id}`, { method: "DELETE" }).then(() => {
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+  });
+};
 
 export const getUsers = () => {
   return [...applicationState.users];

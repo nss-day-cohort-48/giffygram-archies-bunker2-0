@@ -1,6 +1,11 @@
 import { GiffyGram } from "./GiffyGram.js";
 import { LoginForm } from "./auth/Login.js";
-import { fetchMessages, fetchPosts, fetchUsers } from "./data/provider.js";
+import {
+  fetchLikes,
+  fetchMessages,
+  fetchPosts,
+  fetchUsers,
+} from "./data/provider.js";
 import { Register } from "./auth/Register.js";
 
 const applicationElement = document.querySelector(".giffygram");
@@ -13,6 +18,7 @@ export const renderApp = () => {
   fetchUsers()
     .then(fetchMessages)
     .then(fetchPosts)
+    .then(fetchLikes)
     .then(() => {
       if (user) {
         applicationElement.innerHTML = GiffyGram();
