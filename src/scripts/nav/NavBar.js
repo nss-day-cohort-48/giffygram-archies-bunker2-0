@@ -43,8 +43,9 @@ applicationElement.addEventListener("click", clickEvent => {
 
 applicationElement.addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "logo") {
+        setInboxDisplayToFalse()
+        setMessageDisplayToFalse()
         applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
-
     }
 })
 
