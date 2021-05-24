@@ -1,4 +1,5 @@
 import { setMessageDisplayToTrue, getMessageDisplayMessage, setMessageDisplayToFalse, getInboxDisplay, setInboxDisplayToFalse, setInboxDisplayToTrue } from "../data/provider.js";
+import {MessageCounter} from "./MessageCounter.js"
 
 
 const applicationElement = document.querySelector(".giffygram");
@@ -49,7 +50,11 @@ applicationElement.addEventListener("click", clickEvent => {
     }
 })
 
+
 export const NavBar = () => {
+
+    const user = parseInt(localStorage.getItem("gg_user"))
+
   return /*html*/ `
         <nav class="navigation">
             <div class="navigation__item navigation__icon">
@@ -61,7 +66,7 @@ export const NavBar = () => {
             
             <div class="navigation__item navigation__message">
                 <img id="directMessageIcon" src="../images/fountain-pen.svg" alt="Direct message" />
-                <div class="notification__count" id="inboxIcon">0</div>
+                <div class="notification__count" id="inboxIcon">${MessageCounter(user)}</div>
             </div>
 
             <div class="navigation__item navigation__logout">

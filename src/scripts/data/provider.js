@@ -72,6 +72,7 @@ export const fetchUsers = () => {
   return fetch(`${apiURL}/users`)
     .then((response) => response.json())
     .then((user) => {
+      console.log("users fetched")
       applicationState.users = user;
     });
 };
