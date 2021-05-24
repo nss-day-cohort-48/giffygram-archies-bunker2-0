@@ -72,6 +72,7 @@ export const fetchUsers = () => {
   return fetch(`${apiURL}/users`)
     .then((response) => response.json())
     .then((user) => {
+      console.log("users fetched")
       applicationState.users = user;
     });
 };
@@ -94,6 +95,7 @@ export const fetchPosts = () => {
   return fetch(`${apiURL}/posts`)
     .then((response) => response.json())
     .then((post) => {
+      console.log("fetched posts")
       applicationState.posts = post;
     });
 };
@@ -110,6 +112,7 @@ export const fetchMessages = () => {
   return fetch(`${apiURL}/messages`)
     .then((response) => response.json())
     .then((message) => {
+      console.log("fetched messages")
       applicationState.messages = message;
     });
 };
@@ -138,6 +141,7 @@ export const messageIsRead = (messageId) => {
   })
   .then(response => response.json())
   .then(() => {
+      console.log("patched message read")
       mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
   })
 }
@@ -152,6 +156,7 @@ export const messageIsUnread = (messageId) => {
   })
   .then(response => response.json())
   .then(() => {
+    console.log("patched message unread")
       mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
   })
 }
