@@ -74,6 +74,7 @@ export const PostList = () => {
   posts.sort((post1, post2) => (post1.timestamp < post2.timestamp ? 1 : -1));
   const userId = parseInt(localStorage.getItem("gg_user"));
   const likes = getLikes();
+  const localUser = parseInt(localStorage.getItem("gg_user"));
 
   const usersLikes = likes.filter((likeObject) => {
     return userId === likeObject.userId;
@@ -132,9 +133,11 @@ export const PostList = () => {
       }.svg">
             </div>
             <div>
-            <img id="blockPost--${
-              post.id
-            }" class="actionIcon" src="/images/block.svg">
+            ${
+              post.userId === localUser
+                ? `<img id="blockPost--${post.id}" class="actionIcon" src="/images/block.svg" />`
+                : ""
+            }
         </div>
         </div>
         </section>
@@ -146,3 +149,7 @@ export const PostList = () => {
 
   return html;
 };
+
+// ${
+//   post.userId === localUser
+//   ? `<img id="blockPost--${post.id}`}" class="actionIcon" src="/images/block.svg">
