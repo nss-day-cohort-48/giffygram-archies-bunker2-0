@@ -71,6 +71,12 @@ export const favoritePost = (id) => {
     });
 };
 
+export const removeLikedPost = (id) => {
+  return fetch(`${apiURL}/likes/${id}`, { method: "DELETE" }).then(() => {
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+  });
+};
+
 export const fetchUsers = () => {
   return fetch(`${apiURL}/users`)
     .then((response) => response.json())

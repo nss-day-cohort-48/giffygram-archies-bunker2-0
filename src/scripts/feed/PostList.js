@@ -4,6 +4,7 @@ import {
   getLikes,
   getPosts,
   getUsers,
+  removeLikedPost,
 } from "../data/provider.js";
 
 document.addEventListener("click", (eventClicked) => {
@@ -66,17 +67,18 @@ export const PostList = () => {
 
         <div class="post__actions">
             <div>
-                <img id="favoritePost--${
-                  post.id
-                }" class="actionIcon" src="/images/favorite-star-${
-        foundLike ? "yellow" : "blank"
-      }.svg">
+                <img id="favoritePost--${post.id}" 
+                class="actionIcon" 
+                src="/images/favorite-star-${
+                  foundLike ? "yellow" : "blank"
+                }.svg">
+                
             </div>
+
             <div>
                 <img id="blockPost--${
                   post.id
                 }" class="actionIcon" src="/images/block.svg">
-
             </div>
         </div>
         
@@ -88,7 +90,3 @@ export const PostList = () => {
     .join("")}`;
   return html;
 };
-
-//   /images/favorite-star-blank.svg
-
-//  /images/favorite-star-yellow.svg
