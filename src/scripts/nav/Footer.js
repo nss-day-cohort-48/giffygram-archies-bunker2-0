@@ -1,4 +1,4 @@
-import { favoritePost, getDisplayFavorites, getPosts, getUsers, setChosenUser, setDisplayFavoritesToFalse, setDisplayFavoritesToTrue, getChosenUser } from "../data/provider.js";
+import { getDisplayFavorites, getPosts, getUsers, setChosenUser, setDisplayFavoritesToFalse, setDisplayFavoritesToTrue, getChosenUser } from "../data/provider.js";
 
 const applicationElement = document.querySelector(".giffygram");
 
@@ -34,21 +34,13 @@ applicationElement.addEventListener("change", (changeEvent) => {
   }
 });
 
-const options = document.querySelectorAll("#userSelection option")
 
 applicationElement.addEventListener("change", (changeEvent) => {
   if (changeEvent.target.id === "userSelection") {
     const [, userId] = changeEvent.target.value.split("--");
     // localStorage.setItem("selectedUserId", userId)
-
-    // if (userId === "0") {
-    //   applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
-
-    // } else  {
-    // }
     setChosenUser(parseInt(userId));
     applicationElement.dispatchEvent(new CustomEvent("stateChanged"));
-    // document.querySelector(".giffygram__feed").innerHTML = userPostFeedHTML(userId)
   }
 });
 
