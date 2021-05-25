@@ -5,6 +5,7 @@ import {
   getChosenUser,
   favoritePost,
   deletePost,
+  removeLikedPost,
 } from "../data/provider.js";
 
 // export const PostList = () => {
@@ -60,12 +61,26 @@ document.addEventListener("click", (eventClicked) => {
   }
 });
 
-document.addEventListener("click", (eventClicked) => {
-  if (eventClicked.target.id.startsWith("favoritePost--")) {
-    const [, postId] = eventClicked.target.id.split("--");
-    favoritePost(parseInt(postId));
+document.addEventListener("click", clickEvent => {
+
+  const likes = getLikes()
+  if(clickEvent.target.id.startsWith("favoritePost")) {
+    const [, favoritePostId] = clickEvent.target.id.split("--")
+    const favoritePostIdInt = parseInt(favoritePostId)
+    const userId = parseInt(localStorage.getItem("gg_user"));
+    const usersLikes = likes.filter((likeObject) => {
+      return userId === likeObject.userId;
+    });
+    if (favoritePostIdInt > 0) {
+      const foundPostLike = usersLikes.find(like => like.postId === favoritePostIdInt)
+      if(foundPostLike) {
+        removeLikedPost(foundPostLike.id)
+      } else {
+        favoritePost(favoritePostIdInt)
+      }
+    }
   }
-});
+})
 
 export const PostList = () => {
   const posts = getPosts();
@@ -92,6 +107,8 @@ export const PostList = () => {
     );
     displayedPosts = filteredPosts;
   }
+
+
 
   let html = `
 
