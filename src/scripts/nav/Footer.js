@@ -34,9 +34,12 @@ applicationElement.addEventListener("change", (changeEvent) => {
   }
 });
 
+const options = document.querySelectorAll("#userSelection option")
+
 applicationElement.addEventListener("change", (changeEvent) => {
   if (changeEvent.target.id === "userSelection") {
     const [, userId] = changeEvent.target.value.split("--");
+    localStorage.setItem("selectedUserId", userId)
 
     // if (userId === "0") {
     //   applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
@@ -101,11 +104,11 @@ export const Footer = () => {
 
 const footUserDropdownHTML = () => {
   let dropdownHTML = ``;
-
+  const selectedUserId = parseInt(localStorage.getItem("selectedUserId"))
   const users = getUsers();
 
   dropdownHTML += users.map(
-    (user) => `<option value="user--${user.id}">${user.name}</option>`
+    (user) => `<option value="user--${user.id}" ${user.id === selectedUserId ? "selected" : ""}>${user.name}</option>`
   );
 
   return dropdownHTML;
