@@ -1,4 +1,4 @@
-import { getPosts, getUsers, setChosenUser } from "../data/provider.js";
+import { favoritePost, getDisplayFavorites, getPosts, getUsers, setChosenUser, setDisplayFavoritesToFalse, setDisplayFavoritesToTrue } from "../data/provider.js";
 
 const applicationElement = document.querySelector(".giffygram");
 
@@ -52,9 +52,30 @@ applicationElement.addEventListener("change", (changeEvent) => {
   }
 });
 
+applicationElement.addEventListener("change", changeEvent => {
+
+  let favoritesDisplay = getDisplayFavorites()
+
+  if(changeEvent.target.id === "showOnlyFavorites") {
+    if(favoritesDisplay === false) {
+      localStorage.setItem("favoritesChecked", true)
+      setDisplayFavoritesToTrue()
+      applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+    }
+    else if(favoritesDisplay === true) {
+      localStorage.setItem("favoritesChecked", false)
+      setDisplayFavoritesToFalse()
+      applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+    }
+  }
+})
+
 export const Footer = () => {
   //Footer HTML stuff
-  return `
+
+  const favoriteCheckBox = JSON.parse(localStorage.getItem("favoritesChecked"))
+  
+    return `
     <footer class ="footer">
       <div class="footer__item">
         Posts Since <select id="yearSelection">
@@ -71,12 +92,12 @@ export const Footer = () => {
           ${footUserDropdownHTML()}
         </select>
       </div>
-      <div class="footer__item">
-        Show only favorites
-        <input id="showOnlyFavorites" type="checkbox">
-      </div>
-    </footer>
-  `;
+        <div class="footer__item">
+          Show only favorites
+          <input id="showOnlyFavorites" type="checkbox" ${favoriteCheckBox ? "checked" : ""}>
+        </div>
+      </footer>
+    `;
 };
 
 const footUserDropdownHTML = () => {
