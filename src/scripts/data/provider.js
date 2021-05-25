@@ -62,19 +62,28 @@ export const setInboxDisplayToFalse = () => {
   applicationState.feed.displayInbox = false;
 };
 
-export const favoritePost = (likedPost) => {
+export const favoritePost = (id) => {
   const fetchOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(likedPost),
+    body: JSON.stringify({
+      userId: parseInt(localStorage.getItem("gg_user")),
+      postId: id,
+    }),
   };
-  return fetch(`${apiURL}/posts`, fetchOptions)
+  return fetch(`${apiURL}/likes`, fetchOptions)
     .then((response) => response.json())
     .then(() => {
       mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
     });
+};
+
+export const removeLikedPost = (id) => {
+  return fetch(`${apiURL}/likes/${id}`, { method: "DELETE" }).then(() => {
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+  });
 };
 
 export const fetchUsers = () => {
@@ -140,32 +149,37 @@ export const postMessage = (userMessage) => {
 
 export const messageIsRead = (messageId) => {
   return fetch(`${apiURL}/messages/${messageId}`, {
-      method: "PATCH",
-      headers: {
-          "Content-Type": "application/json"
-      },
-      body: JSON.stringify({read: true})
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ read: true }),
   })
-  .then(response => response.json())
-  .then(() => {
-      mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
-  })
-}
+    .then((response) => response.json())
+    .then(() => {
+      mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+    });
+};
 
 export const messageIsUnread = (messageId) => {
   return fetch(`${apiURL}/messages/${messageId}`, {
-      method: "PATCH",
-      headers: {
-          "Content-Type": "application/json"
-      },
-      body: JSON.stringify({read: false})
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ read: false }),
   })
-  .then(response => response.json())
-  .then(() => {
-      mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
-  })
-}
+    .then((response) => response.json())
+    .then(() => {
+      mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+    });
+};
 
+export const deletePost = (id) => {
+  return fetch(`${apiURL}/posts/${id}`, { method: "DELETE" }).then(() => {
+    mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+  });
+};
 
 export const getUsers = () => {
   return [...applicationState.users];
