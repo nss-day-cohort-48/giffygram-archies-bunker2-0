@@ -3,6 +3,8 @@ import {
   getPosts,
   getUsers,
   getChosenUser,
+  favoritePost,
+  deletePost,
 } from "../data/provider.js";
 
 // export const PostList = () => {
