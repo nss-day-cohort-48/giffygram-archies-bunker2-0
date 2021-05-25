@@ -1,4 +1,4 @@
-import { favoritePost, getDisplayFavorites, getPosts, getUsers, setChosenUser, setDisplayFavoritesToFalse, setDisplayFavoritesToTrue } from "../data/provider.js";
+import { getDisplayFavorites, getPosts, getUsers, setChosenUser, setDisplayFavoritesToFalse, setDisplayFavoritesToTrue, getChosenUser } from "../data/provider.js";
 
 const applicationElement = document.querySelector(".giffygram");
 
@@ -34,21 +34,13 @@ applicationElement.addEventListener("change", (changeEvent) => {
   }
 });
 
-const options = document.querySelectorAll("#userSelection option")
 
 applicationElement.addEventListener("change", (changeEvent) => {
   if (changeEvent.target.id === "userSelection") {
     const [, userId] = changeEvent.target.value.split("--");
-    localStorage.setItem("selectedUserId", userId)
-
-    // if (userId === "0") {
-    //   applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
-
-    // } else  {
-    // }
+    // localStorage.setItem("selectedUserId", userId)
     setChosenUser(parseInt(userId));
     applicationElement.dispatchEvent(new CustomEvent("stateChanged"));
-    // document.querySelector(".giffygram__feed").innerHTML = userPostFeedHTML(userId)
   }
 });
 
@@ -58,12 +50,12 @@ applicationElement.addEventListener("change", changeEvent => {
 
   if(changeEvent.target.id === "showOnlyFavorites") {
     if(favoritesDisplay === false) {
-      localStorage.setItem("favoritesChecked", true)
+      // localStorage.setItem("favoritesChecked", true)
       setDisplayFavoritesToTrue()
       applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
     }
     else if(favoritesDisplay === true) {
-      localStorage.setItem("favoritesChecked", false)
+      // localStorage.setItem("favoritesChecked", false)
       setDisplayFavoritesToFalse()
       applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
     }
@@ -73,7 +65,9 @@ applicationElement.addEventListener("change", changeEvent => {
 export const Footer = () => {
   //Footer HTML stuff
 
-  const favoriteCheckBox = JSON.parse(localStorage.getItem("favoritesChecked"))
+  let favoritesDisplay = getDisplayFavorites()
+
+  // const favoriteCheckBox = JSON.parse(localStorage.getItem("favoritesChecked"))
   
     return `
     <footer class ="footer">
@@ -94,7 +88,7 @@ export const Footer = () => {
       </div>
         <div class="footer__item">
           Show only favorites
-          <input id="showOnlyFavorites" type="checkbox" ${favoriteCheckBox ? "checked" : ""}>
+          <input id="showOnlyFavorites" type="checkbox" ${favoritesDisplay ? "checked" : ""}>
         </div>
       </footer>
     `;
@@ -102,7 +96,7 @@ export const Footer = () => {
 
 const footUserDropdownHTML = () => {
   let dropdownHTML = ``;
-  const selectedUserId = parseInt(localStorage.getItem("selectedUserId"))
+  const selectedUserId = getChosenUser()
   const users = getUsers();
 
   dropdownHTML += users.map(

@@ -1,4 +1,4 @@
-import { setMessageDisplayToTrue, getMessageDisplayMessage, setMessageDisplayToFalse, getInboxDisplay, setInboxDisplayToFalse, setInboxDisplayToTrue } from "../data/provider.js";
+import { setMessageDisplayToTrue, getMessageDisplayMessage, setMessageDisplayToFalse, getInboxDisplay, setInboxDisplayToFalse, setInboxDisplayToTrue, setDisplayFavoritesToFalse } from "../data/provider.js";
 import {MessageCounter} from "./MessageCounter.js"
 
 
@@ -46,6 +46,8 @@ applicationElement.addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "logo") {
         setInboxDisplayToFalse()
         setMessageDisplayToFalse()
+        setDisplayFavoritesToFalse()
+        localStorage.setItem("favoritesChecked", false)
         applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
     }
 })
