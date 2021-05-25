@@ -2,8 +2,9 @@ const apiURL = "http://localhost:8088";
 
 const applicationState = {
   currentUser: {},
+  minimode: true,
   feed: {
-    chosenUser: null,
+    chosenUser: 0,
     displayFavorites: false,
     displayMessage: false,
     displayInbox: false,
@@ -31,6 +32,10 @@ export const sendPost = (newPost) => {
     });
 };
 
+export const getChosenUser = () => {
+  return applicationState.feed.chosenUser
+}
+
 export const getMessageDisplayMessage = () => {
   return applicationState.feed.displayMessage;
 };
@@ -41,6 +46,10 @@ export const setMessageDisplayToTrue = () => {
 export const setMessageDisplayToFalse = () => {
   applicationState.feed.displayMessage = false;
 };
+
+export const setChosenUser = (userId) => {
+  applicationState.feed.chosenUser = userId
+} 
 
 export const getInboxDisplay = () => {
   return applicationState.feed.displayInbox;
@@ -81,6 +90,7 @@ export const fetchUsers = () => {
   return fetch(`${apiURL}/users`)
     .then((response) => response.json())
     .then((user) => {
+      console.log("users fetched")
       applicationState.users = user;
     });
 };
