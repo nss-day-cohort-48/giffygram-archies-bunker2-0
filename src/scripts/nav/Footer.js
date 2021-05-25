@@ -56,7 +56,6 @@ applicationElement.addEventListener("change", changeEvent => {
 
   let favoritesDisplay = getDisplayFavorites()
 
-
   if(changeEvent.target.id === "showOnlyFavorites") {
     if(favoritesDisplay === false) {
       localStorage.setItem("favoritesChecked", true)
@@ -74,8 +73,7 @@ applicationElement.addEventListener("change", changeEvent => {
 export const Footer = () => {
   //Footer HTML stuff
 
-  const favoriteCheckBox = localStorage.getItem("favoritesChecked")
-
+  const favoriteCheckBox = JSON.parse(localStorage.getItem("favoritesChecked"))
   
     return `
     <footer class ="footer">
@@ -96,7 +94,7 @@ export const Footer = () => {
       </div>
         <div class="footer__item">
           Show only favorites
-          <input id="showOnlyFavorites" type="checkbox" checked>
+          <input id="showOnlyFavorites" type="checkbox" ${favoriteCheckBox ? "checked" : ""}>
         </div>
       </footer>
     `;

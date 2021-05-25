@@ -71,10 +71,12 @@ const usersLikes = likes.filter((likeObject) => {
         }.svg">
               </div>
               <div>
-              <img id="blockPost--${
-                post.id
-              }" class="actionIcon" src="/images/block.svg">
-          </div>
+            ${
+              post.userId === userId
+                ? `<img id="blockPost--${post.id}" class="actionIcon" src="/images/block.svg" />`
+                : ""
+            }
+        </div>
           </div>
           </section>
           
