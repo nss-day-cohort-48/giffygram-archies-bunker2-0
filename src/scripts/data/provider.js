@@ -47,6 +47,18 @@ export const setMessageDisplayToFalse = () => {
   applicationState.feed.displayMessage = false;
 };
 
+export const setDisplayFavoritesToTrue = () => {
+  applicationState.feed.displayFavorites = true
+}
+
+export const setDisplayFavoritesToFalse = () => {
+  applicationState.feed.displayFavorites = false
+}
+
+export const getDisplayFavorites = () => {
+  return applicationState.feed.displayFavorites
+}
+
 export const setChosenUser = (userId) => {
   applicationState.feed.chosenUser = userId
 } 
