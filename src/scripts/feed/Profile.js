@@ -50,6 +50,18 @@ export const Profile = () => {
 		} 
 	})
 
+	let followersOfChosenUser = []
+
+	follows.filter((follow) => {
+		if (follow.followingId === chosenUserId) {
+			users.filter((user) => {
+				if (user.id === follow.userId) {
+					followersOfChosenUser.push(user)
+				}
+			})
+		} 
+	})
+
 	let displayedPosts = [];
 
 	if (chosenUserId === 0) {
@@ -66,6 +78,9 @@ export const Profile = () => {
               <h3 class="profile__postCount">Total Post Count: ${displayedPosts.length}</h3>
 							<h3 class="profile__postCount">Is Following: ${chosenUserIsFollowing.map((followee) => {
 								return `${followee.name}`
+							})}</h3>
+							<h3 class="profile__postCount">Followers: ${followersOfChosenUser.map((follower) => {
+								return `${follower.name}`
 							})}</h3>
 							<button class="profile__postCount" id="follow--${chosenUserId}">Follow</button>
 
