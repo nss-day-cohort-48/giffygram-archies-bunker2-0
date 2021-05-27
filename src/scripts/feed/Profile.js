@@ -130,7 +130,7 @@ export const Profile = () => {
 								<ul class="profile__postCount">
 									<h1>Followers:</h1> 
 										${followersOfChosenUser.map((follower) => {
-											return `<li>${follower.name}</li>`
+											return `<li><button class="fakeLink" id="profile--${follower.id}">${follower.name}</button></li>`
 										}).join("")}
 								</ul>
 							</div> 
@@ -138,7 +138,7 @@ export const Profile = () => {
 								<ul class="profile__postCount">
 									<h1 class="profile__postCount">Following:</h1>
 										${chosenUserIsFollowing.map((followee) => {
-											return `<li>${followee.name}</li>`
+											return `<li><button class="fakeLink" id="profile--${followee.id}">${followee.name}</button></li>`
 										}).join("")}
 								</ul>
 							</div>
@@ -198,7 +198,7 @@ const showFollowing = () => {
 
 	if (followersOn) {
 		div.classList.toggle("profileFollowers")
-		div.classList.toggle("profileFollowing")
+	// 	//div.classList.toggle("profileFollowing")
 	} else {
 		div.classList.toggle("profileFollowing")
 	  	followingOn = true
@@ -210,7 +210,7 @@ const showFollowers = () => {
 	
 	if (followingOn) {
 		div.classList.toggle("profileFollowers")
-		div.classList.toggle("profileFollowing")
+	// 	//div.classList.toggle("profileFollowing")
 	} else {
 		div.classList.toggle("profileFollowers")
 			followingOn = true
