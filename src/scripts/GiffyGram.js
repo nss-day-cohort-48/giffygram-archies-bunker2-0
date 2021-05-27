@@ -14,7 +14,7 @@ export const GiffyGram = () => {
   let profileDisplay = getDisplayProfile()
   // Show main main UI
   //shows the posts list
-  if (inboxDisplay === false && favoritesDisplay === false && profileDisplay === false) {
+  if (!inboxDisplay && !favoritesDisplay && !profileDisplay ) {
     return `
       ${NavBar()}
       ${MessageForm()}
@@ -26,7 +26,7 @@ export const GiffyGram = () => {
     `;
   }
   //show favorites list
-  else if (inboxDisplay === false && favoritesDisplay === true && profileDisplay === false) {
+  else if (!inboxDisplay && favoritesDisplay && !profileDisplay) {
     return `
       ${NavBar()}
       ${MessageForm()}
@@ -37,7 +37,7 @@ export const GiffyGram = () => {
       ${Footer()}
     `;
     //shows the profile
-  } else if (inboxDisplay === false && favoritesDisplay === false && profileDisplay === true) {
+  } else if (!inboxDisplay && !favoritesDisplay && profileDisplay) {
     return `
       ${NavBar()}
       ${MessageForm()}

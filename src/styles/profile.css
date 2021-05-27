@@ -3,7 +3,30 @@
   flex-basis: 50%;
 }
 
+.profile__main-flex {
+  display: flex;
+}
+
+.profile__main-flex-inner {
+  flex-basis : 50%
+}
+
+
 .profile__postCount {
   margin: 0 25%;
   flex-basis: 50%;
+}
+
+.profile__button {
+  margin: 1% 25%;
+  flex-basis: 50%;
+
+}
+
+.profileFollowers {
+  display: none;
+}
+
+.profileFollowing {
+  display: none;
 }

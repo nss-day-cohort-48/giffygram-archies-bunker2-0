@@ -17,6 +17,7 @@ const applicationElement = document.querySelector(".giffygram");
 applicationElement.addEventListener("click", clickEvent => {
        if (clickEvent.target.id === "logout") {
             localStorage.removeItem("gg_user")
+            setProfileDisplayToFalse()
             applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
        }          
     })
