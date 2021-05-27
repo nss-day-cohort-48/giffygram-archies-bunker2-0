@@ -1,46 +1,4 @@
 import {
-  getChosenUserProfileId,
-  getPosts,
-  getUsers,
-  getLikes,
-  getFollows,
-  postFollow,
-} from "../data/provider.js";
-import { PostEntry } from "./PostsEntry.js";
-
-const applicationElement = document.querySelector(".giffygram");
-document.addEventListener("click", (clickEvent) => {
-  if (clickEvent.target.id.startsWith("follow--")) {
-    const [, followingId] = clickEvent.target.id.split("--");
-    const currentUserId = parseInt(localStorage.getItem("gg_user"));
-
-    const followObject = {
-      followingId: parseInt(followingId),
-      userId: currentUserId,
-    };
-
-    postFollow(followObject);
-  }
-});
-
-document.addEventListener("click", (e) => {
-  if (e.target.id === "followingButton") {
-    showFollowing();
-  }
-});
-
-document.addEventListener("click", (e) => {
-  if (e.target.id === "followersButton") {
-    showFollowers();
-  }
-});
-
-document.addEventListener("click", (e) => {
-  if (e.target.id === "postButton") {
-    showPosts();
-  }
-});
-=======
 	getChosenUserProfileId,
 	getPosts,
 	getUsers,
