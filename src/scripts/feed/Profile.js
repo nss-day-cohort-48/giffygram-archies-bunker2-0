@@ -195,7 +195,6 @@ const followingOn = false
 const showFollowing = () => {
 
 	const div = document.getElementById("profileFollowing")
-	const div2 = document.getElementById("profileFollowers")
 
 	if (followersOn) {
 		div.classList.toggle("profileFollowers")
@@ -208,7 +207,6 @@ const showFollowing = () => {
 
 const showFollowers = () => {
 	const div = document.getElementById("profileFollowers")
-	const div2 = document.getElementById("profileFollowing")
 	
 	if (followingOn) {
 		div.classList.toggle("profileFollowers")

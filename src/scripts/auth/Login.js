@@ -49,6 +49,7 @@ document.addEventListener("click", (clickEvent) => {
 export const LoginForm = () => {
     return /*html*/ `
         <div class="loginForm">
+          <h1>Login Form</h1>
             <form>
                 <fieldset>
                     <label for="email">Email:</label>

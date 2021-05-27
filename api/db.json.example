@@ -4,18 +4,21 @@
       "id": 1,
       "name": "Ray Medrano",
       "email": "ray@medrano.com",
+      "imageURL": "https://avataaars.io/?avatarStyle=Circle&topType=LongHairCurvy&accessoriesType=Wayfarers&hairColor=Blonde&facialHairType=BeardMajestic&facialHairColor=Platinum&clotheType=BlazerShirt&clotheColor=White&eyeType=Hearts&eyebrowType=RaisedExcitedNatural&mouthType=Serious&skinColor=DarkBrown",
       "password": "ray"
     },
     {
       "id": 2,
       "name": "Meg Ducharme",
       "email": "meg@ducharme.com",
+      "imageURL": "https://avataaars.io/?avatarStyle=Circle&topType=LongHairBun&accessoriesType=Prescription02&hairColor=BlondeGolden&facialHairType=Blank&facialHairColor=Brown&clotheType=CollarSweater&clotheColor=PastelRed&eyeType=Happy&eyebrowType=DefaultNatural&mouthType=Vomit&skinColor=Yellow",
       "password": "meg"
     },
     {
       "id": 3,
       "name": "Mark Ellis",
       "email": "mark@ellis.com",
+      "imageURL": "https://avataaars.io/?avatarStyle=Circle&topType=LongHairMiaWallace&accessoriesType=Blank&hairColor=Blonde&facialHairType=BeardLight&facialHairColor=Brown&clotheType=BlazerShirt&clotheColor=White&graphicType=Pizza&eyeType=Wink&eyebrowType=UpDown&mouthType=Sad&skinColor=Pale",
       "password": "mark"
     }
   ],

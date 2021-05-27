@@ -9,12 +9,14 @@ applicationElement.addEventListener("click", clickEvent => {
         //get the values from the form
         const userName = document.querySelector("input[name='userName']").value
         const userEmail = document.querySelector("input[name='email']").value
+        const userProfileImg = document.querySelector("input[name='avatar']").value
         const userPassword = document.querySelector("input[name='password']").value
 
         //format those values into a new user object
         const newUserToSendToApi = {
             name: userName,
             email: userEmail,
+            imageURL: userProfileImg,
             password: userPassword
         }
         // make sure the form is filled out
@@ -39,8 +41,8 @@ applicationElement.addEventListener("click", clickEvent => {
 //Register Form HTML
 export const Register = () => {
   return `
-        <h1>Register Form</h1>
-        <div class="registerForm">
+  <div class="registerForm">
+  <h1>Register Form</h1>
             <form>
             <fieldset>
                 <label for="name">Name:</label>
@@ -49,6 +51,10 @@ export const Register = () => {
                 <fieldset>
                     <label for="email">Email:</label>
                     <input type="email" name="email" autofocus placeholder="don@joe.com" required/>
+                </fieldset>
+                <fieldset>
+                    <label for="profilePic">Profile Image URL:</label>
+                    <input type="text" name="avatar" autofocus placeholder="getavataaars.com" required/>
                 </fieldset>
                 <fieldset>
                     <label for="password">Password:</label>

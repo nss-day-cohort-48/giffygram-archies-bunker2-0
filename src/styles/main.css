@@ -46,10 +46,14 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
 }
 
-.loginForm {
+.loginForm, .registerForm {
     margin: 0 25%;
 }
 
 #logo {
     cursor: pointer;
+}
+
+fieldset {
+    margin: 2% 0;
 }
