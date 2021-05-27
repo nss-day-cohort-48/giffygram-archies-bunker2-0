@@ -4,7 +4,8 @@ import {
 	getUsers,
 	getLikes,
 	getFollows,
-	postFollow
+	postFollow,
+	removeFollow
 } from "../data/provider.js";
 import { PostEntry } from "./PostsEntry.js";
 
@@ -26,6 +27,18 @@ document.addEventListener("click", clickEvent => {
 })
 
 document.addEventListener("click", e => {
+	if (e.target.id.startsWith("unfollow--")){
+		const follows = getFollows()
+		const currentProfileId = getChosenUserProfileId()
+		const currentUserId = parseInt(localStorage.getItem("gg_user"))
+
+		const foundFollow = follows.find(follow => follow.followingId === currentProfileId && follow.userId === currentUserId)
+		
+		removeFollow(foundFollow.id)
+	}
+})
+
+document.addEventListener("click", e => {
 	if (e.target.id === "followingButton") {
 		showFollowing()
 	}
@@ -42,6 +55,8 @@ document.addEventListener("click", e => {
 		showPosts()
 	}
 })
+
+
 
 export const Profile = () => {
 	const users = getUsers();
@@ -125,7 +140,7 @@ export const Profile = () => {
 							<div class="profile__main-flex-inner">
 							<button class="profile__button miniMode profile__flex-item" id="followingButton">Following: ${chosenUserIsFollowing.length}</button>
 							<button class="profile__button miniMode profile__flex-item" id="followersButton">Followers: ${followersOfChosenUser.length}</button>
-							<button class="profile__button miniMode profile__flex-item" id="follow--${chosenUserId}" ${isCurrentUserFollowing || isCurrentUser ? "disabled" : ""}>Follow ${userName}</button>
+							<button class="profile__button miniMode profile__flex-item" id="${isCurrentUserFollowing ? "unfollow--" : "follow--"}${chosenUserId}">${isCurrentUserFollowing? "Unfollow" : "Follow"} ${userName}</button>
 							</div>
 							</div>
 							<div id="profileFollowers" class="profileFollowers">
