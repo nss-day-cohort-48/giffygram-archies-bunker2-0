@@ -5,10 +5,22 @@
 
 .profile__main-flex {
   display: flex;
+
+}
+
+.profile__flex-item {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile__main-flex-inner {
-  flex-basis : 50%
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-basis : 50%;
+  flex-direction: column;
+
 }
 
 
@@ -18,8 +30,8 @@
 }
 
 .profile__button {
-  margin: 1% 25%;
-  flex-basis: 50%;
+  margin: 1% 15%;
+  background-color: transparent;
 
 }
 

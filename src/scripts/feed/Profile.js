@@ -6,6 +6,8 @@ import {
 	getFollows,
 	postFollow
 } from "../data/provider.js";
+import { PostEntry } from "./PostsEntry.js";
+
 
 const applicationElement = document.querySelector(".giffygram")
 document.addEventListener("click", clickEvent => {
@@ -117,13 +119,13 @@ export const Profile = () => {
 
 	let html = `<div class="profile__main-flex profile__postCount">
 							<div class="profile__main-flex-inner">
-							<img src="${userPic}" alt="photo of ${userName}">
-							<h1 class="">${userName}</h1>
+							<div class="profile__flex-item"><img src="${userPic}" alt="photo of ${userName}"></div>
+							<h1 class="profile__name profile__flex-item">${userName}</h1>
 							</div>
 							<div class="profile__main-flex-inner">
-							<button class="profile__button fakeLink" id="followingButton">Following: ${chosenUserIsFollowing.length}</button>
-							<button class="profile__button fakeLink" id="followersButton">Followers: ${followersOfChosenUser.length}</button>
-							<button class="profile__button fakeLink" id="follow--${chosenUserId}" ${isCurrentUserFollowing || isCurrentUser ? "disabled" : ""}>Follow ${userName}</button>
+							<button class="profile__button miniMode profile__flex-item" id="followingButton">Following: ${chosenUserIsFollowing.length}</button>
+							<button class="profile__button miniMode profile__flex-item" id="followersButton">Followers: ${followersOfChosenUser.length}</button>
+							<button class="profile__button miniMode profile__flex-item" id="follow--${chosenUserId}" ${isCurrentUserFollowing || isCurrentUser ? "disabled" : ""}>Follow ${userName}</button>
 							</div>
 							</div>
 							<div id="profileFollowers" class="profileFollowers">
@@ -142,6 +144,7 @@ export const Profile = () => {
 										}).join("")}
 								</ul>
 							</div>
+							<div>${PostEntry()}</div>
 							<div>
 							 <h1 class="profile__postCount">Posts: ${displayedPosts.length}</h1>
 							${displayedPosts
@@ -189,8 +192,8 @@ export const Profile = () => {
   return html;
 };
 
-const followersOn = false
-const followingOn = false
+let followersOn = false
+let followingOn = false
 
 const showFollowing = () => {
 
