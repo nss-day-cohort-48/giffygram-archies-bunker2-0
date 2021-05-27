@@ -200,6 +200,13 @@ export const removeLikedPost = (id) => {
   });
 };
 
+export const removeFollow = (id) => {
+  return fetch(`${apiURL}/follows/${id}`, 
+  { method: "DELETE" }).then(() => {
+    applicationElement.dispatchEvent(new CustomEvent("stateChanged"));
+  });
+};
+
 // ------------------------------------
 // ------------------------- GETTERS --
 // --get stuff from app state

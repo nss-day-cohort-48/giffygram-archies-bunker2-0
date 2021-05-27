@@ -27,11 +27,17 @@ document.addEventListener("click", (clickEvent) => {
     const email = document.querySelector("input[name='email']").value;
     const password = document.querySelector("input[name='password']").value;
     //iterate the users list to find a user
+
+    if ((email.length === 0 || password.length === 0)) {
+      document.getElementById("loginError").classList.toggle("loginError")
+      
+    }
+
     for (const user of users) {
       //if the user's inputs from the form match a user's email and password
       if (user.email === email && user.password === password) {
         //we found the user to login
-        foundUser = user;
+        foundUser = user;   
       }
     }
     // if we found a user
@@ -40,7 +46,7 @@ document.addEventListener("click", (clickEvent) => {
       localStorage.setItem("gg_user", foundUser.id);
       // app state has changed so tell it to rerender
       applicationElement.dispatchEvent(new CustomEvent("stateChanged"));
-    }
+    } 
   }
 });
 
@@ -60,6 +66,8 @@ export const LoginForm = () => {
                     <input type="password" name="password" placeholder="Password" />
                 </fieldset>
             </form>
+            <div class="loginError warning" id="loginError">PLEASE FILL OUT THE FORM!</div>
+            <div class="passwordError warning" id="passwordError">EMAIL OR PASSWORD NOT FOUND!</div>
             <button id="loginButton">Login</button>
             <button id="startRegister">Register</button>
         </div>

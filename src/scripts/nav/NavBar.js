@@ -2,6 +2,7 @@ import { setMessageDisplayToTrue,
     getMessageDisplayMessage, 
     setMessageDisplayToFalse, 
     getInboxDisplay,
+    getDisplayProfile,
     setInboxDisplay,
     setInboxDisplayToFalse, 
     setInboxDisplayToTrue, 
@@ -79,10 +80,11 @@ export const NavBar = () => {
 
     const users = getUsers()
     const currentUserId = parseInt(localStorage.getItem("gg_user"))
-
     const userName = users.find((user) => user.id === currentUserId).name;
+    const displayProfile = getDisplayProfile()
 
-  return /*html*/ `
+
+  return `
         <nav class="navigation">
             <div class="navigation__item navigation__icon">
                 <img src="../images/pb.png" alt="Giffygram icon" id="logo"/>
@@ -98,12 +100,10 @@ export const NavBar = () => {
 
             <div>
             <div class="navigation__item navigation__logout">
-                <button id="logout" class="fakeLink">Logout</button>
-            </div>
-            <div class="navigation__item navigation__logout">
-                <button id="profile" class="fakeLink"> ${userName}</button>
+                <button id="${displayProfile ? "logout" : "profile"}" class="fakeLink"> ${displayProfile ? "Logout" : userName}</button>
             </div>
             </div>
+             
         </nav>
     `;
 };

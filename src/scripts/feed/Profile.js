@@ -40,6 +40,66 @@ document.addEventListener("click", (e) => {
     showPosts();
   }
 });
+=======
+	getChosenUserProfileId,
+	getPosts,
+	getUsers,
+	getLikes,
+	getFollows,
+	postFollow,
+	removeFollow
+} from "../data/provider.js";
+import { PostEntry } from "./PostsEntry.js";
+
+
+const applicationElement = document.querySelector(".giffygram")
+document.addEventListener("click", clickEvent => {
+	if (clickEvent.target.id.startsWith("follow--")) {
+		const [, followingId] = clickEvent.target.id.split("--")
+		const currentUserId = parseInt(localStorage.getItem("gg_user"));
+
+		const followObject = {
+			followingId: parseInt(followingId),
+			userId: currentUserId
+		}
+
+		postFollow(followObject)
+
+	}
+})
+
+document.addEventListener("click", e => {
+	if (e.target.id.startsWith("unfollow--")){
+		const follows = getFollows()
+		const currentProfileId = getChosenUserProfileId()
+		const currentUserId = parseInt(localStorage.getItem("gg_user"))
+
+		const foundFollow = follows.find(follow => follow.followingId === currentProfileId && follow.userId === currentUserId)
+		
+		removeFollow(foundFollow.id)
+	}
+})
+
+document.addEventListener("click", e => {
+	if (e.target.id === "followingButton") {
+		showFollowing()
+	}
+})
+
+document.addEventListener("click", e => {
+	if (e.target.id === "followersButton") {
+		showFollowers()
+	}
+})
+
+document.addEventListener("click", e => {
+	if (e.target.id === "postButton") {
+		showPosts()
+	}
+})
+
+
+
 
 export const Profile = () => {
   const users = getUsers();
@@ -124,6 +184,7 @@ export const Profile = () => {
 							<h1 class="profile__name profile__flex-item">${userName}</h1>
 							</div>
 							<div class="profile__main-flex-inner">
+
 							<button class="profile__button miniMode profile__flex-item" id="followingButton">Following: ${
                 chosenUserIsFollowing.length
               }</button>
@@ -133,6 +194,10 @@ export const Profile = () => {
 							<button class="profile__button miniMode profile__flex-item" id="follow--${chosenUserId}" ${
     isCurrentUserFollowing || isCurrentUser ? "disabled" : ""
   }>Follow ${userName}</button>
+
+							<button class="profile__button miniMode profile__flex-item" id="followingButton">Following: ${chosenUserIsFollowing.length}</button>
+							<button class="profile__button miniMode profile__flex-item" id="followersButton">Followers: ${followersOfChosenUser.length}</button>
+							<button class="profile__button miniMode profile__flex-item" id="${isCurrentUserFollowing ? "unfollow--" : "follow--"}${chosenUserId}">${isCurrentUserFollowing? "Unfollow" : "Follow"} ${userName}</button>
 							</div>
 							</div>
 							<div id="profileFollowers" class="profileFollowers">

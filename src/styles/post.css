@@ -55,6 +55,7 @@
 }
 
 .post__image {
+    border-radius: .5rem;
     width: 100%;
 }
 
