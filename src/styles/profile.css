@@ -3,7 +3,42 @@
   flex-basis: 50%;
 }
 
+.profile__main-flex {
+  display: flex;
+
+}
+
+.profile__flex-item {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile__main-flex-inner {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-basis : 50%;
+  flex-direction: column;
+
+}
+
+
 .profile__postCount {
   margin: 0 25%;
   flex-basis: 50%;
+}
+
+.profile__button {
+  margin: 1% 15%;
+  background-color: transparent;
+
+}
+
+.profileFollowers {
+  display: none;
+}
+
+.profileFollowing {
+  display: none;
 }

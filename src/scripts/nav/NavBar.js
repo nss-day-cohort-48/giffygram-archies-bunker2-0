@@ -6,8 +6,10 @@ import { setMessageDisplayToTrue,
     setInboxDisplayToFalse, 
     setInboxDisplayToTrue, 
     setDisplayFavoritesToFalse, 
-    setProfileDisplayToFalse, 
-    getUsers} from "../data/provider.js";
+    setProfileDisplayToFalse,
+    setProfileDisplayToTrue,
+    getUsers,
+    setChosenUserProfileId} from "../data/provider.js";
 import {MessageCounter} from "./MessageCounter.js"
 
 
@@ -17,10 +19,19 @@ const applicationElement = document.querySelector(".giffygram");
 applicationElement.addEventListener("click", clickEvent => {
        if (clickEvent.target.id === "logout") {
             localStorage.removeItem("gg_user")
+            setProfileDisplayToFalse()
             applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
        }          
     })
 
+    applicationElement.addEventListener("click", clickEvent => {
+        if (clickEvent.target.id === "profile") {
+             
+             setProfileDisplayToTrue()
+             setChosenUserProfileId(parseInt(localStorage.getItem("gg_user")))
+             applicationElement.dispatchEvent(new CustomEvent("stateChanged"))
+        }          
+     })
 
 //click event to look at or write DMs
 applicationElement.addEventListener("click", clickEvent => {
@@ -85,8 +96,13 @@ export const NavBar = () => {
                 <div class="notification__count" id="inboxIcon">${MessageCounter(currentUserId)}</div>
             </div>
 
+            <div>
             <div class="navigation__item navigation__logout">
-                <button id="logout" class="fakeLink">Logout ${userName}</button>
+                <button id="logout" class="fakeLink">Logout</button>
+            </div>
+            <div class="navigation__item navigation__logout">
+                <button id="profile" class="fakeLink"> ${userName}</button>
+            </div>
             </div>
         </nav>
     `;
