@@ -1,159 +1,170 @@
 import {
-	getChosenUserProfileId,
-	getPosts,
-	getUsers,
-	getLikes,
-	getFollows,
-	postFollow
+  getChosenUserProfileId,
+  getPosts,
+  getUsers,
+  getLikes,
+  getFollows,
+  postFollow,
 } from "../data/provider.js";
 import { PostEntry } from "./PostsEntry.js";
 
+const applicationElement = document.querySelector(".giffygram");
+document.addEventListener("click", (clickEvent) => {
+  if (clickEvent.target.id.startsWith("follow--")) {
+    const [, followingId] = clickEvent.target.id.split("--");
+    const currentUserId = parseInt(localStorage.getItem("gg_user"));
 
-const applicationElement = document.querySelector(".giffygram")
-document.addEventListener("click", clickEvent => {
-	if (clickEvent.target.id.startsWith("follow--")) {
-		const [, followingId] = clickEvent.target.id.split("--")
-		const currentUserId = parseInt(localStorage.getItem("gg_user"));
+    const followObject = {
+      followingId: parseInt(followingId),
+      userId: currentUserId,
+    };
 
-		const followObject = {
-			followingId: parseInt(followingId),
-			userId: currentUserId
-		}
+    postFollow(followObject);
+  }
+});
 
-		postFollow(followObject)
+document.addEventListener("click", (e) => {
+  if (e.target.id === "followingButton") {
+    showFollowing();
+  }
+});
 
-	}
-})
+document.addEventListener("click", (e) => {
+  if (e.target.id === "followersButton") {
+    showFollowers();
+  }
+});
 
-document.addEventListener("click", e => {
-	if (e.target.id === "followingButton") {
-		showFollowing()
-	}
-})
-
-document.addEventListener("click", e => {
-	if (e.target.id === "followersButton") {
-		showFollowers()
-	}
-})
-
-document.addEventListener("click", e => {
-	if (e.target.id === "postButton") {
-		showPosts()
-	}
-})
+document.addEventListener("click", (e) => {
+  if (e.target.id === "postButton") {
+    showPosts();
+  }
+});
 
 export const Profile = () => {
-	const users = getUsers();
-	const posts = getPosts();
-	const likes = getLikes();
-	const follows = getFollows()
-	const chosenUserId = getChosenUserProfileId();
-	const currentUserId = parseInt(localStorage.getItem("gg_user"));
+  const users = getUsers();
+  const posts = getPosts();
+  const likes = getLikes();
+  const follows = getFollows();
+  const chosenUserId = getChosenUserProfileId();
+  const currentUserId = parseInt(localStorage.getItem("gg_user"));
 
-	const userName = users.find((user) => user.id === chosenUserId).name;
-	const userPic = users.find((user) => user.id === chosenUserId).imageURL;
+  const userName = users.find((user) => user.id === chosenUserId).name;
+  const userPic = users.find((user) => user.id === chosenUserId).imageURL;
 
-	const usersLikes = likes.filter((likeObject) => {
-		return currentUserId === likeObject.userId;
-	});
+  const usersLikes = likes.filter((likeObject) => {
+    return currentUserId === likeObject.userId;
+  });
 
-  let chosenUserIsFollowing = []
+  let chosenUserIsFollowing = [];
 
-	follows.filter((follow) => {
-		if (follow.userId === chosenUserId) {
-			users.filter((user) => {
-				if (user.id === follow.followingId) {
-					chosenUserIsFollowing.push(user)
-				}
-			})
-		} 
-	})
+  follows.filter((follow) => {
+    if (follow.userId === chosenUserId) {
+      users.filter((user) => {
+        if (user.id === follow.followingId) {
+          chosenUserIsFollowing.push(user);
+        }
+      });
+    }
+  });
 
-	let followersOfChosenUser = []
+  let followersOfChosenUser = [];
 
-	follows.filter((follow) => {
-		if (follow.followingId === chosenUserId) {
-			users.filter((user) => {
-				if (user.id === follow.userId) {
-					followersOfChosenUser.push(user)
-				}
-			})
-		} 
-	})
+  follows.filter((follow) => {
+    if (follow.followingId === chosenUserId) {
+      users.filter((user) => {
+        if (user.id === follow.userId) {
+          followersOfChosenUser.push(user);
+        }
+      });
+    }
+  });
 
-	let isCurrentUserFollowing = false
+  let isCurrentUserFollowing = false;
 
-	for (const follower of followersOfChosenUser) {
-		if (follower.id === currentUserId) {
-			isCurrentUserFollowing = true
-		}
-	}
+  for (const follower of followersOfChosenUser) {
+    if (follower.id === currentUserId) {
+      isCurrentUserFollowing = true;
+    }
+  }
 
+  let isCurrentUser = false;
 
-	let isCurrentUser = false 
+  if (chosenUserId === currentUserId) {
+    isCurrentUser = true;
+  }
 
-	if (chosenUserId === currentUserId) {
-		isCurrentUser = true
-	}
+  let displayedPosts = [];
 
-	let displayedPosts = [];
+  if (chosenUserId === 0) {
+    displayedPosts = posts;
+  } else {
+    const filteredPosts = posts.filter(
+      (post) => post.userId === parseInt(chosenUserId)
+    );
+    filteredPosts.sort((post1, post2) =>
+      post1.timestamp < post2.timestamp ? 1 : -1
+    );
+    displayedPosts = filteredPosts;
+  }
 
-	if (chosenUserId === 0) {
-		displayedPosts = posts;
-	} else {
-		const filteredPosts = posts.filter(
-			(post) => post.userId === parseInt(chosenUserId));
-		filteredPosts.sort(
-			(post1, post2) => (post1.timestamp < post2.timestamp ? 1 : -1));
-		displayedPosts = filteredPosts;
-	}
-
-{/* <div>
+  {
+    /* <div>
 								<h3 class="profile__postCount">Is Following:</h3>
 								${chosenUserIsFollowing.map((followee) => {
 									return `${followee.name}`
 								})}
 							</div>
-							*/}
+							*/
+  }
 
-	let html = `<div class="profile__main-flex profile__postCount">
+  let html = `<div class="profile__main-flex profile__postCount">
 							<div class="profile__main-flex-inner">
 							<div class="profile__flex-item"><img src="${userPic}" alt="photo of ${userName}"></div>
 							<h1 class="profile__name profile__flex-item">${userName}</h1>
 							</div>
 							<div class="profile__main-flex-inner">
-							<button class="profile__button miniMode profile__flex-item" id="followingButton">Following: ${chosenUserIsFollowing.length}</button>
-							<button class="profile__button miniMode profile__flex-item" id="followersButton">Followers: ${followersOfChosenUser.length}</button>
-							<button class="profile__button miniMode profile__flex-item" id="follow--${chosenUserId}" ${isCurrentUserFollowing || isCurrentUser ? "disabled" : ""}>Follow ${userName}</button>
+							<button class="profile__button miniMode profile__flex-item" id="followingButton">Following: ${
+                chosenUserIsFollowing.length
+              }</button>
+							<button class="profile__button miniMode profile__flex-item" id="followersButton">Followers: ${
+                followersOfChosenUser.length
+              }</button>
+							<button class="profile__button miniMode profile__flex-item" id="follow--${chosenUserId}" ${
+    isCurrentUserFollowing || isCurrentUser ? "disabled" : ""
+  }>Follow ${userName}</button>
 							</div>
 							</div>
 							<div id="profileFollowers" class="profileFollowers">
 								<ul class="profile__postCount">
 									<h1>Followers:</h1> 
-										${followersOfChosenUser.map((follower) => {
-											return `<li><button class="fakeLink" id="profile--${follower.id}">${follower.name}</button></li>`
-										}).join("")}
+										${followersOfChosenUser
+                      .map((follower) => {
+                        return `<li><button class="fakeLink" id="profile--${follower.id}">${follower.name}</button></li>`;
+                      })
+                      .join("")}
 								</ul>
 							</div> 
 							<div id="profileFollowing" class="profileFollowing">
 								<ul class="profile__postCount">
 									<h1 class="profile__postCount">Following:</h1>
-										${chosenUserIsFollowing.map((followee) => {
-											return `<li><button class="fakeLink" id="profile--${followee.id}">${followee.name}</button></li>`
-										}).join("")}
+										${chosenUserIsFollowing
+                      .map((followee) => {
+                        return `<li><button class="fakeLink" id="profile--${followee.id}">${followee.name}</button></li>`;
+                      })
+                      .join("")}
 								</ul>
 							</div>
 							<div>${PostEntry()}</div>
 							<div>
 							 <h1 class="profile__postCount">Posts: ${displayedPosts.length}</h1>
 							${displayedPosts
-								.map((post) => {
-									const foundLike = usersLikes.find((userLiked) => {
-										return userLiked.postId === post.id;
-									});
-						
-									return `
+                .map((post) => {
+                  const foundLike = usersLikes.find((userLiked) => {
+                    return userLiked.postId === post.id;
+                  });
+
+                  return `
 									<section class="post">
 										<header>
 											<h2 class="post__title">${post.title}</h2>
@@ -176,53 +187,49 @@ export const Profile = () => {
 													src="/images/favorite-star-${foundLike ? "yellow" : "blank"}.svg">
 											</div>
 											<div>
-												${post.userId === currentUserId ? 
-													`<img id="blockPost--${post.id}" class="actionIcon" src="/images/block.svg" />`
-													: ""}
+												${
+                          post.userId === currentUserId
+                            ? `<img id="blockPost--${post.id}" class="actionIcon" src="/images/block.svg" />`
+                            : ""
+                        }
 											</div>
 										</div>
 									</section>`;
-								}).join("")}
+                })
+                .join("")}
 								</div>
-								`
- 
+								`;
 
-  
-    
   return html;
 };
 
-let followersOn = false
-let followingOn = false
+let followersOn = false;
+let followingOn = false;
 
 const showFollowing = () => {
+  const div = document.getElementById("profileFollowing");
 
-	const div = document.getElementById("profileFollowing")
-
-	if (followersOn) {
-		div.classList.toggle("profileFollowers")
-	// 	//div.classList.toggle("profileFollowing")
-	} else {
-		div.classList.toggle("profileFollowing")
-	  	followingOn = true
-}
-}
+  if (followersOn) {
+    div.classList.toggle("profileFollowers");
+    // 	//div.classList.toggle("profileFollowing")
+  } else {
+    div.classList.toggle("profileFollowing");
+    followingOn = true;
+  }
+};
 
 const showFollowers = () => {
-	const div = document.getElementById("profileFollowers")
-	
-	if (followingOn) {
-		div.classList.toggle("profileFollowers")
-	// 	//div.classList.toggle("profileFollowing")
-	} else {
-		div.classList.toggle("profileFollowers")
-			followingOn = true
-	}
-	
-}
+  const div = document.getElementById("profileFollowers");
+
+  if (followingOn) {
+    div.classList.toggle("profileFollowers");
+    // 	//div.classList.toggle("profileFollowing")
+  } else {
+    div.classList.toggle("profileFollowers");
+    followingOn = true;
+  }
+};
 
 const showPosts = () => {
-	document.getElementById("postsButton")
-
-}
-
+  document.getElementById("postsButton");
+};
