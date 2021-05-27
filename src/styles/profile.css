@@ -1,0 +1,9 @@
+.profile__title {
+  margin: 0 25%;
+  flex-basis: 50%;
+}
+
+.profile__postCount {
+  margin: 0 25%;
+  flex-basis: 50%;
+}

@@ -2,10 +2,13 @@ import { getMessages, getUsers, messageIsRead, messageIsUnread } from "../data/p
 
 const applicationElement = document.querySelector(".giffygram");
 
+//change event listener for the read checkbox
 applicationElement.addEventListener("change", changeEvent => {
-
+    //get messages
     let messages = getMessages();
+
     if(changeEvent.target.id.startsWith("readCheckbox")) {
+      
        const [, messageId] = changeEvent.target.id.split("--")
        const messageIdInt = parseInt(messageId)
        for (const message of messages) {
@@ -32,46 +35,38 @@ export const MessageList = () => {
 
 
   let html = `<div class="messages">
-               <div class="messageList">
-               <h3 class="unReadMessagesHeader">Unread Messages</h3>
-               ${unReadMessages.map((message) => {
-                   if(currentUserId === message.recipientId) 
+                <div class="messageList">
+                <h3 class="unReadMessagesHeader">Unread Messages</h3>
+                ${unReadMessages.map((message) => {
+                    if(currentUserId === message.recipientId) 
 
-                 return `
-                        <div class="message" id="message--${message.id}">
-                            <div class="message__author">From ${
-                              users.find(
-                                (user) => user.id === message.userId
-                              ).name
-                            }</div>
-                            <div class="message__text">${message.text}</div>
-                            <input type="checkbox" id="readCheckbox--${message.id}"> Read</input>
-                        </div>
-                        
-                   `;
-               }).join("")}
-               </div>
+                  return `
+                          <div class="message" id="message--${message.id}">
+                              <div class="message__author">
+                              From 
+                              ${users.find((user) => user.id === message.userId).name}
+                              </div>
+                              <div class="message__text">${message.text}</div>
+                              <input type="checkbox" id="readCheckbox--${message.id}"> Read</input>
+                          </div>`
+                }).join("")}
+                </div>
 
-               <div class="messageList">
-               <h3 class="readMessagesHeader">Read Messages</h3>
-               ${readMessages.map((message) => {
-                   if(currentUserId === message.recipientId) 
+                <div class="messageList">
+                <h3 class="readMessagesHeader">Read Messages</h3>
+                ${readMessages.map((message) => {
+                    if(currentUserId === message.recipientId) 
 
-                 return `
-                        <div class="message" id="message--${message.id}">
-                            <div class="message__author">From ${
-                              users.find(
-                                (user) => user.id === message.userId
-                              ).name
-                            }</div>
-                            <div class="message__text">${message.text}</div>
-                            <input type="checkbox" id="readCheckbox--${message.id}" checked="checked"> Read</input>
-                        </div>
-                        
-                   `;
-               }).join("")}
-               </div>
-               </div>
-    `;
+                  return `
+                          <div class="message" id="message--${message.id}">
+                              <div class="message__author">From ${
+                                users.find((user) => user.id === message.userId).name}
+                              </div>
+                              <div class="message__text">${message.text}</div>
+                              <input type="checkbox" id="readCheckbox--${message.id}" checked="checked"> Read</input>
+                          </div>`;
+                }).join("")}
+                </div>
+              </div>`;
   return html;
 };

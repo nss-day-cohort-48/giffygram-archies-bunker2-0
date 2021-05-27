@@ -1,17 +1,11 @@
-import {
-  getUsers,
-  postMessage,
-  getMessageDisplayMessage,
-  setMessageDisplayToFalse,
-} from "../data/provider.js";
+import { getUsers, postMessage, getMessageDisplayMessage, setMessageDisplayToFalse } from "../data/provider.js";
 
 const applicationElement = document.querySelector(".giffygram");
-
+//click to submit DM
 applicationElement.addEventListener("click", (clickEvent) => {
   if (clickEvent.target.id === "directMessage__submit") {
     const messageRecipient = document.querySelector(".message__input").value;
-    const messageDescription = document.querySelector("input[name='message']")
-      .value;
+    const messageDescription = document.querySelector("input[name='message']").value;
 
     const currentUserId = parseInt(localStorage.getItem("gg_user"));
 
@@ -47,7 +41,7 @@ export const MessageForm = () => {
         ${users
           .map((user) => {
             return `
-            <option class="user" value="${user.id}">${user.id}</option>
+            <option class="user" value="${user.id}">${user.name}</option>
             `;
           })
           .join("")}
