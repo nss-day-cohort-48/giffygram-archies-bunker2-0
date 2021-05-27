@@ -34,11 +34,26 @@
   background-color: transparent;
 
 }
+.profile__button:hover {
+  border: 3px dashed rebeccapurple;
+}
 
 .profileFollowers {
   display: none;
 }
 
 .profileFollowing {
+  display: none;
+}
+
+.warning {
+  color: red;
+}
+
+.loginError {
+  display: none;
+}
+
+.passwordError {
   display: none;
 }

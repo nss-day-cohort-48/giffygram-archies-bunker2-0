@@ -111,6 +111,7 @@ export const Footer = () => {
           Show only favorites
           <input id="showOnlyFavorites" type="checkbox" ${favoritesDisplay ? "checked" : ""}>
         </div>
+        <div class="creds">©2021 CJW, AJW, & theJMDW</div>
       </footer>
     `;
 };
